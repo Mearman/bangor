@@ -19,12 +19,13 @@ jobs:
       - name: Cache apt archives
         uses: actions/cache@v4
         with:
-          path: /var/cache/apt/archives
+          path: ~/apt-archives
           key: apt-${{ runner.os }}-lint-v1
       - name: Install tools
         run: |
+          mkdir -p /home/runner/apt-archives
           sudo apt-get update
-          sudo apt-get install -y texlive-extra-utils
+          sudo apt-get install -y -o Dir::Cache::archives=/home/runner/apt-archives texlive-extra-utils
       - name: Format
         run: |
           for f in *.sty *.cls doc/*.tex tests/smoke/*.tex; do
