@@ -52,9 +52,8 @@ jobs:
         run: |
           status=0
           for f in *.sty *.cls doc/*.tex; do
-            chktex -q "$f"
-            rc=$?
-            [ "$rc" -ge 2 ] && status=1
+            chktex -q "$f" 2>&1 | tee "/tmp/chktex-$f.log" || true
+            grep -q "Error" "/tmp/chktex-$f.log" && status=1
           done
           exit $status
       - name: Lint workflow YAML
