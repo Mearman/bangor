@@ -21,7 +21,7 @@ jobs:
         with:
           path: ~/.npm
           key: npm-semantic-release-v1
-      - uses: Mearman/actions/.github/actions/setup-texlive@ci/v1
+      - uses: Mearman/actions/.github/actions/setup-texlive@v1
       - name: Fetch l3build from CTAN
         run: |
           curl -sL -o l3build.zip https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/l3build.zip
