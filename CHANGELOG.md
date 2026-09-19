@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Mearman/bangor/compare/v1.0.1...v1.0.2) (2026-09-19)
+
+
+### Bug Fixes
+
+* install the babel welsh language pack for the option coverage fixture ([60ea0d4](https://github.com/Mearman/bangor/commit/60ea0d4271d198112cc87c23e6c0bbf6952a4932))
+
 ## [1.0.1](https://github.com/Mearman/bangor/compare/v1.0.0...v1.0.1) (2026-09-19)
 
 
