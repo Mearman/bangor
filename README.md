@@ -1,4 +1,6 @@
 # bangor
+[![Open in Overleaf](https://img.shields.io/badge/Open_in_Overleaf-ED0000?style=for-the-badge&logo=overleaf&logoColor=FDB913&labelColor=231F20)](https://www.overleaf.com/docs?snip_uri=https://github.com/Mearman/bangor/archive/refs/heads/main.zip)
+[![Download ZIP](https://img.shields.io/badge/Download_ZIP-ED0000?style=for-the-badge&logo=github&logoColor=FDB913&labelColor=231F20)](https://github.com/Mearman/bangor/archive/refs/heads/main.zip)
 
 LaTeX modules for Bangor University documents: the brand, the document identity, the regulation layout, the statutory declarations, a headed letter style, and a thesis and dissertation class. This README uses controlled English. It is written in British English.
 
