@@ -128,6 +128,16 @@ jobs:
             status=1
           fi
           exit $status
+      - name: Fetch l3build for the regression checks
+        run: |
+          curl -sL -o l3build.zip \
+            https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/l3build.zip
+          unzip -q l3build.zip
+          mkdir -p "$HOME/texmf/scripts/l3build"
+          cp l3build/*.lua "$HOME/texmf/scripts/l3build/"
+          mktexlsr "$HOME/texmf"
+      - name: Run l3build regression checks
+        run: texlua l3build/l3build.lua check
       - name: Assert margin-floor violation
         run: |
           if latexmk -pdf -interaction=nonstopmode tests/smoke/margin-fail.tex >/dev/null 2>&1; then
