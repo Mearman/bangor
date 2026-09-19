@@ -45,7 +45,7 @@
 \DeclareBoolOption[true]{strict}
 
 % Print submission: leading blank page for duplex binding. Digital is
-% the default state and only documents that print is false.
+% the default state; the option exists to state it explicitly.
 \DeclareBoolOption[false]{print}
 \DeclareBoolOption[false]{digital}
 
