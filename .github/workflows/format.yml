@@ -1,6 +1,9 @@
 name: Format
 
-# One-click source formatting for contributors without a local TeX Live: runs latexindent with the committed settings over every LaTeX source and lands the result as a single conventional commit. The CI lint job then sees a formatted tree.
+# One-click source formatting for contributors without a local
+# TeX Live: runs latexindent with the committed settings over every
+# LaTeX source and lands the result as a single conventional commit.
+# The CI lint job then sees a formatted tree.
 on: workflow_dispatch
 
 permissions:
