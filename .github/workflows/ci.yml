@@ -149,7 +149,7 @@ jobs:
           sudo apt-get install -y texlive-extra-utils
       - name: Fetch l3build from CTAN
         run: |
-          curl -sL -o l3build.zip https://mirrors.ctan.org/support/l3build.zip
+          curl -sL -o l3build.zip https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/l3build.zip
           unzip -q l3build.zip
       - name: Build CTAN archive
         run: texlua l3build/l3build.lua ctan
