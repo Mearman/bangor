@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Mearman/bangor/compare/v1.0.2...v1.0.3) (2026-09-19)
+
+
+### Bug Fixes
+
+* packaging job needs the full TeX engine for the ctan check gate ([b68919e](https://github.com/Mearman/bangor/commit/b68919edca1e8c6f5057f724f833b25a5a55d4fe))
+
 ## [1.0.2](https://github.com/Mearman/bangor/compare/v1.0.1...v1.0.2) (2026-09-19)
 
 
