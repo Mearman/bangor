@@ -92,7 +92,7 @@ jobs:
         run: |
           latexmk -pdf -interaction=nonstopmode doc/bangor.tex
           ! grep -E "^!" doc/bangor.log
-          ! grep -E "undefined|multiply defined|Citation.*undefined" doc/bangor.log
+          ! grep -E "Reference .* undefined|Citation .* undefined|multiply defined" doc/bangor.log
       - name: Compile positive smoke tests
         run: |
           status=0
@@ -100,7 +100,7 @@ jobs:
             latexmk -pdf -interaction=nonstopmode "tests/smoke/$f.tex" || status=1
             log="tests/smoke/$f.log"
             grep -E "^!" "$log" && status=1
-            grep -E "undefined|multiply defined|Citation.*undefined" "$log" && status=1
+            grep -E "Reference .* undefined|Citation .* undefined|multiply defined" "$log" && status=1
           done
           exit $status
       - name: Assert strict-mode failure
