@@ -36,7 +36,7 @@
 \newcommand{\bgl@violation}[1]{%
   \ifbgl@strict
     \PackageError{bangorlayout}{#1}%
-      {Set strict=false on the class or package line to compile anyway.}%
+    {Set strict=false on the class or package line to compile anyway.}%
   \else
     \PackageWarningNoLine{bangorlayout}{#1}%
   \fi}
@@ -55,16 +55,16 @@
 \ifx\bgl@font\bgl@choicetermes
   \RequirePackage{tgtermes}%
 \else\ifx\bgl@font\bgl@choicebonum
-  \RequirePackage{tgbonum}%
-\else\ifx\bgl@font\bgl@choiceheros
-  \RequirePackage{tgheros}%
-  \bgl@seriffalse
-  \bgl@herostrue
-\else
-  \bgl@violation{Unknown font choice `\bgl@font'. Permitted choices:
-    termes, bonum, heros. Using termes.}%
-  \RequirePackage{tgtermes}%
-\fi\fi\fi
+    \RequirePackage{tgbonum}%
+  \else\ifx\bgl@font\bgl@choiceheros
+      \RequirePackage{tgheros}%
+      \bgl@seriffalse
+      \bgl@herostrue
+    \else
+      \bgl@violation{Unknown font choice `\bgl@font'. Permitted choices:
+        termes, bonum, heros. Using termes.}%
+      \RequirePackage{tgtermes}%
+    \fi\fi\fi
 % A sans-serif body uses the sans family as the document default.
 \ifbgl@heros
   \renewcommand{\familydefault}{\sfdefault}%
