@@ -16,7 +16,7 @@
     ],
     [
       "@semantic-release/github",
-      { "assets": ["doc/bangor.pdf", "bangor-ctan.zip", "bangor.tds.zip"] }
+      { "assets": ["bangor.pdf", "bangor-ctan.zip"] }
     ]
   ]
 }
