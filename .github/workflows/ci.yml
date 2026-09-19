@@ -151,6 +151,9 @@ jobs:
         run: |
           curl -sL -o l3build.zip https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/l3build.zip
           unzip -q l3build.zip
+          mkdir -p "$HOME/texmf/scripts/l3build"
+          cp l3build/*.lua "$HOME/texmf/scripts/l3build/"
+          mktexlsr "$HOME/texmf"
       - name: Build CTAN archive
         run: texlua l3build/l3build.lua ctan
       - uses: actions/upload-artifact@v4
