@@ -39,6 +39,14 @@ jobs:
             grep -q "Error" "/tmp/chktex-$f.log" && status=1
           done
           exit $status
+      - name: Install actionlint and shellcheck
+        run: |
+          sudo apt-get install -y shellcheck
+          curl -sL -o actionlint.tar.gz \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.7/actionlint_1.7.7_linux_amd64.tar.gz
+          tar -xzf actionlint.tar.gz actionlint
+      - name: Lint workflows
+        run: ./actionlint -color
       - name: Lint workflow YAML
         run: yamllint .github/workflows/
 
@@ -67,8 +75,14 @@ jobs:
       - name: Compile documentation
         run: |
           latexmk -pdf -interaction=nonstopmode doc/bangor.tex
-          ! grep -E "^!" doc/bangor.log
-          ! grep -E "Reference .* undefined|Citation .* undefined|multiply defined" doc/bangor.log
+          if grep -E "^!" doc/bangor.log; then
+            echo "assertion failed: doc/bangor.log matches"
+            exit 1
+          fi
+          if grep -E "Reference .* undefined|Citation .* undefined|multiply defined" doc/bangor.log; then
+            echo "assertion failed: doc/bangor.log matches"
+            exit 1
+          fi
       - name: Compile positive smoke tests
         run: |
           status=0
