@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Mearman/bangor/compare/v1.0.0...v1.0.1) (2026-09-19)
+
+
+### Bug Fixes
+
+* attach the built documentation PDF from its actual path ([1729ab0](https://github.com/Mearman/bangor/commit/1729ab0676fbb6bc244fc1536824c80b268bd293))
+* wordmark renders black by default per the brand colour restraint guidance ([082dc00](https://github.com/Mearman/bangor/commit/082dc001413e0c165ffae568169863d2337dc3f4))
+
 # 1.0.0 (2026-09-19)
 
 
