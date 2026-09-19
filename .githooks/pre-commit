@@ -9,7 +9,7 @@ staged=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(sty|cls|t
 
 if command -v latexindent >/dev/null 2>&1; then
   for f in $staged; do
-    latexindent -silent -l .latexindent.yaml -w "$f" 2>/dev/null || true
+    latexindent -silent -l .latexindent.yaml -w "$f" 2>/dev/null && rm -f "$f.bak0" || true
     git add "$f"
   done
 else

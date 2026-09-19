@@ -25,7 +25,7 @@ jobs:
       - name: Format
         run: |
           for f in *.sty *.cls doc/*.tex tests/smoke/*.tex; do
-            latexindent -l .latexindent.yaml -s -w "$f"
+            latexindent -l .latexindent.yaml -s -w "$f" && rm -f "$f.bak0"
           done
       - name: Commit
         run: |
