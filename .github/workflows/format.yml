@@ -26,6 +26,7 @@ jobs:
           mkdir -p /home/runner/apt-archives
           sudo apt-get update
           sudo apt-get install -y -o Dir::Cache::archives=/home/runner/apt-archives texlive-extra-utils
+          sudo chown -R $USER: /home/runner/apt-archives
       - name: Format
         run: |
           for f in *.sty *.cls doc/*.tex tests/smoke/*.tex; do

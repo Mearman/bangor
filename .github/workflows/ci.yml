@@ -42,6 +42,7 @@ jobs:
           mkdir -p /home/runner/apt-archives
           sudo apt-get update
           sudo apt-get install -y -o Dir::Cache::archives=/home/runner/apt-archives texlive-extra-utils chktex yamllint
+          sudo chown -R $USER: /home/runner/apt-archives
       - name: Format check
         run: |
           status=0
@@ -89,7 +90,7 @@ jobs:
             texlive-latex-base texlive-latex-recommended \
             texlive-latex-extra texlive-fonts-recommended \
             texlive-bibtex-extra texlive-extra-utils biber latexmk
-      - name: Compile documentation
+          sudo chown -R $USER: /home/runner/apt-archives
         run: |
           latexmk -pdf -interaction=nonstopmode doc/bangor.tex
           ! grep -E "^!" doc/bangor.log
@@ -149,6 +150,7 @@ jobs:
           mkdir -p /home/runner/apt-archives
           sudo apt-get update
           sudo apt-get install -y -o Dir::Cache::archives=/home/runner/apt-archives texlive-extra-utils
+          sudo chown -R $USER: /home/runner/apt-archives
       - name: Fetch l3build from CTAN
         run: |
           curl -sL -o l3build.zip https://mirror.apps.cam.ac.uk/pub/tex-archive/macros/latex/contrib/l3build.zip
