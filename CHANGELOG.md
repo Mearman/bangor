@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Mearman/bangor/compare/v1.2.0...v1.2.1) (2026-09-20)
+
+
+### Bug Fixes
+
+* bangortables loads longtable, tabularx, pdflscape independently ([9d21ad2](https://github.com/Mearman/bangor/commit/9d21ad2308c8d6c92aff5c9dec15226a70cfda42))
+
 # [1.2.0](https://github.com/Mearman/bangor/compare/v1.1.1...v1.2.0) (2026-09-20)
 
 
