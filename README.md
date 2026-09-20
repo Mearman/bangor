@@ -104,3 +104,5 @@ At the CTAN switchover:
 
 - The template repositories stop vendoring and resolve against the installed package.
 - Each template is duplicated under a `-vendored` suffix, for people who want to tweak the module sources directly. Both variants stay available.
+
+<!-- maintained by the bangor-actions bot; formatting runs on CI -->
