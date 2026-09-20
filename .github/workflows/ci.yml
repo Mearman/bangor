@@ -155,8 +155,30 @@ jobs:
           status=0
           latexmk -pdf -interaction=nonstopmode tests/smoke/tables-glossary.tex || status=1
           if grep -E "^!" tables-glossary.log; then status=1; fi
-          if grep -E "Unknown abbreviation|multiply defined" tables-glossary.log; then status=1; fi
+          if grep -E "Unknown abbreviation|multiply defined|Reference .* undefined" tables-glossary.log; then
+            status=1
+          fi
           text=$(pdftotext -layout tables-glossary.pdf -)
+          if printf '%s\n' "$text" | grep -q "of ??"; then
+            echo "the last page number is unresolved when the document ends on a float page"
+            status=1
+          fi
+          if ! printf '%s\n' "$text" | grep -qE "^[[:space:]]*Abbreviations[[:space:]]*$"; then
+            echo "the list of abbreviations has no heading"
+            status=1
+          fi
+          if ! printf '%s\n' "$text" | grep -qE "^ *Abbreviations +[ivx]+$"; then
+            echo "the list of abbreviations is not in the contents with its page"
+            status=1
+          fi
+          if ! printf '%s\n' "$text" | grep -qE "^ *ML +machine learning.*1.*4$"; then
+            echo "machine learning does not list the range of pages that use it"
+            status=1
+          fi
+          if ! printf '%s\n' "$text" | grep -qE "^ *IR +information retrieval.* 1$"; then
+            echo "information retrieval does not list the one page that uses it"
+            status=1
+          fi
           if ! printf '%s\n' "$text" | grep -q "Machine learning (ML)"; then
             echo "first-use expansion missing from the abbreviations output"
             status=1

@@ -137,7 +137,13 @@ package, so it adds almost no compile time.
         short form after that.
   \item \verb|\Useabbrev{ML}| does the same with a capital letter on the
         first word. Use it at the start of a sentence.
-  \item \verb|\printabbrevs| prints the abbreviations in alphabetical order.
+  \item \verb|\printabbrevs| prints an unnumbered chapter, entered in the
+        contents, that lists the abbreviations in alphabetical order. Each
+        entry ends with the pages that use it, and a run of three or more
+        consecutive arabic pages is written as a range. The heading reads
+        ``Abbreviations'' unless an optional argument gives another, as in
+        \verb|\printabbrevs[List of abbreviations]|. The page lists come from
+        the previous run, so a first run shows none.
 \end{itemize}
 
 \section{Headed letters: bangorletter}
