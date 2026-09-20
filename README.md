@@ -66,7 +66,7 @@ The title page carries no number. The front matter (acknowledgements, abstract, 
 
 ## Float numbering
 
-Two options change how figures, tables, listings and algorithms are numbered, and they combine. `sharedfloats` puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3. `sectionfloats` numbers floats within their section, so the first float in section 5.1 is 5.1.1. A float that comes before the first section of a chapter is numbered by the chapter alone (5.1) by default. Set `sectionfloats=zero` to number it by section zero (5.0.1) instead. Together the two give one sequence that restarts at each section. Listings and algorithms take part when their packages are loaded.
+Floats are numbered within their section, on one counter for every float type, so the first float in section 5.1 is 5.1.1 and the sequence reads Figure 5.1.1, Table 5.1.2, Listing 5.1.3. Two options control this, and both are on by default. `sharedfloats=false` gives each float type its own counter. `sectionfloats=none` numbers floats within their chapter instead of their section. A float that comes before the first section of a chapter is numbered by the chapter alone (5.1). Set `sectionfloats=zero` to number it by section zero (5.0.1) instead. Listings and algorithms take part when their packages are loaded.
 
 ## Headers and footers
 
