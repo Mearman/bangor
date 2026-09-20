@@ -196,10 +196,20 @@
 \fancyhead[L]{\small\itshape\nouppercase{\leftmark}}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+% fancyhdr needs enough vertical space for the running header text;
+% the report class default is too small for 12pt italic chapter names.
+\setlength{\headheight}{14pt}
 \fancypagestyle{plain}{%
   \fancyhf{}
   \fancyfoot[C]{\thepage}
   \renewcommand{\headrulewidth}{0pt}
 }
+
+% cleveref does not auto-detect the listings package's lstlisting
+% counter because listings loads after cleveref (it is a template-level
+% concern). Declaring the format here means templates that use listings
+% get "Listing 1" cross-references out of the box.
+\crefname{lstlisting}{Listing}{Listings}
+\Crefname{lstlisting}{Listing}{Listings}
 
 \endinput
