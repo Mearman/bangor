@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/Mearman/bangor/compare/v1.3.0...v2.0.0) (2026-09-20)
+
+
+* refactor!: use lowercase command names and rename commands that clash with packages ([e65bb57](https://github.com/Mearman/bangor/commit/e65bb579ab1a8c4dd751407e0df99416580a63ce))
+
+
+### BREAKING CHANGES
+
+* several commands are renamed.
+\degreeScheme is now \degreescheme.
+\bibliographySetup is now \bibliographysetup.
+\wordcount is now \submissionwordcount, because stringstrings also defines \wordcount.
+\gls and \Gls are now \useabbrev and \Useabbrev, because glossaries defines \gls and \Gls.
+
 # [1.3.0](https://github.com/Mearman/bangor/compare/v1.2.2...v1.3.0) (2026-09-20)
 
 
