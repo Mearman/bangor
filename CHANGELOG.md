@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Mearman/bangor/compare/v1.0.4...v1.1.0) (2026-09-20)
+
+
+### Features
+
+* load cleveref after hyperref so templates reference content by label alone ([27081cc](https://github.com/Mearman/bangor/commit/27081cc3fc3ad102991738c3bc929c770f201d4f))
+
 ## [1.0.4](https://github.com/Mearman/bangor/compare/v1.0.3...v1.0.4) (2026-09-20)
 
 
