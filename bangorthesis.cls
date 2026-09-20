@@ -56,15 +56,16 @@
 % name on the left and the section name on the right of the header, with
 % the page number in the footer. headers=chapter shows the chapter name
 % and the page number in the header. Each rule is hairline, visible, or
-% none, and the two rules are set separately. pageofm prints the page
-% number as "Page N of M".
+% none, and the two rules are set separately. pageofm is on by default and
+% prints the page number as "Page N of M"; pageofm=false prints the
+% number alone.
 \DeclareStringOption[chapter-section]{headers}[chapter-section]
 \DeclareStringOption[hairline]{headrule}[hairline]
 \DeclareStringOption[hairline]{footrule}[hairline]
-\DeclareBoolOption[false]{pageofm}
+\DeclareBoolOption[true]{pageofm}
 
-% Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. Appendices continue the arabic sequence unless appendixpages is set, which restarts the count at each appendix and prints "Appendix A - Page n".
-\DeclareBoolOption[false]{appendixpages}
+% Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. The count restarts at each appendix and prints "Appendix A - Page n", and appendixpages=false continues the arabic sequence of the main text through the appendices instead.
+\DeclareBoolOption[true]{appendixpages}
 
 % Float numbering, on by default. sharedfloats puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3, and sharedfloats=false gives each type its own counter. sectionfloats numbers floats within their section, so the first float in section 5.1 is 5.1.1. Its value says what a float before the first section of a chapter is called: chapter numbers it by the chapter alone (5.1), zero numbers it by section zero (5.0.1), and none turns section numbering off so floats are numbered within their chapter. The two options combine.
 \DeclareBoolOption[true]{sharedfloats}
