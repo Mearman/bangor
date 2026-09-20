@@ -66,6 +66,10 @@
 % Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. Appendices continue the arabic sequence unless appendixpages is set, which restarts the count at each appendix and prints "Appendix A - Page n".
 \DeclareBoolOption[false]{appendixpages}
 
+% Float numbering. sharedfloats puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3. sectionfloats numbers floats within their section, so the first float in section 5.1 is 5.1.1. Its value says what a float before the first section of a chapter is called: chapter numbers it by the chapter alone (5.1), and zero numbers it by section zero (5.0.1). The two options combine.
+\DeclareBoolOption[false]{sharedfloats}
+\DeclareStringOption[none]{sectionfloats}[chapter]
+
 % Everything else (12pt, a4paper, oneside, twoside, draft, final)
 % passes through to the report class.
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{report}}
@@ -354,6 +358,30 @@
 \let\bts@footertext\bgi@shorttitle
 \bts@checkfooter{The short title is too wide for the footer}{Use a shorter \string\shorttitle.}%
 \fi}
+
+% Float numbering. The switch runs at the very end of the begindocument hook because packages such as listings create their counters lazily and would fail on a counter that already exists. Counters whose package is not loaded are skipped, so the same list serves every document. A shared counter is another name for the figure register, and the number format of each shared type is defined as a call to \thefigure, because a copy of \thefigure taken before it is redefined would keep the old format.
+\def\bts@sfv@none{}
+\def\bts@sfv@chapter{}
+\def\bts@sfv@zero{}
+\@ifundefined{bts@sfv@\bts@sectionfloats}{%
+  \ClassError{bangorthesis}{Unknown sectionfloats value `\bts@sectionfloats'}{The permitted values are none, chapter, and zero.}}{}
+\newcommand{\bts@numberfloat}[1]{%
+  \ifdefstring{\bts@sectionfloats}{none}{}{%
+    \counterwithin{#1}{section}%
+    \ifdefstring{\bts@sectionfloats}{chapter}{%
+      \expandafter\gdef\csname the#1\endcsname{\ifnum\value{section}=0 \thechapter.\else\thesection.\fi\arabic{#1}}}{}}}
+\newcommand{\bts@shareorfloat}{%
+  \ifbts@sharedfloats
+    \@for\bts@floatcounter:=table,lstlisting,algorithm\do{%
+      \@ifundefined{c@\bts@floatcounter}{}{%
+        \expandafter\let\csname c@\bts@floatcounter\expandafter\endcsname\csname c@figure\endcsname
+        \expandafter\gdef\csname the\bts@floatcounter\endcsname{\thefigure}}}%
+    \bts@numberfloat{figure}%
+  \else
+    \@for\bts@floatcounter:=figure,table,lstlisting,algorithm\do{%
+      \@ifundefined{c@\bts@floatcounter}{}{\expandafter\bts@numberfloat\expandafter{\bts@floatcounter}}}%
+  \fi}
+\AddToHook{begindocument/end}{\bts@shareorfloat}
 
 % cleveref does not auto-detect the listings package's lstlisting
 % counter because listings loads after cleveref (it is a template-level
