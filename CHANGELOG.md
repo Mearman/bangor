@@ -1,3 +1,16 @@
+# [3.0.0](https://github.com/Mearman/bangor/compare/v2.3.0...v3.0.0) (2026-09-20)
+
+
+* feat!: number floats within sections on one shared counter by default ([86b91a4](https://github.com/Mearman/bangor/commit/86b91a492ad3600c8e9df0e0fc6662533f4a5481))
+
+
+### BREAKING CHANGES
+
+* float numbers in existing documents change. Figures,
+tables, listings and algorithms now share one counter that restarts at
+each section. Set sharedfloats=false and sectionfloats=none in the class
+options to keep the previous numbering.
+
 # [2.3.0](https://github.com/Mearman/bangor/compare/v2.2.0...v2.3.0) (2026-09-20)
 
 
