@@ -49,6 +49,19 @@ jobs:
         run: ./actionlint -color
       - name: Lint workflow YAML
         run: yamllint .github/workflows/
+      - name: README link check
+        run: |
+          status=0
+          grep -oE 'https://[^)\]]+' README.md | sort -u | while IFS= read -r url; do
+            case "$url" in
+              *img.shields.io*|*ctan.org*|*latex-project.org*) continue ;;
+            esac
+            if ! curl -sf -o /dev/null --max-time 15 "$url"; then
+              echo "broken link: $url"
+              status=1
+            fi
+          done
+          exit ${status:-0}
 
   test:
     runs-on: ubuntu-latest
@@ -81,6 +94,12 @@ jobs:
             echo "assertion failed: doc/bangor.log matches"
             exit 1
           fi
+          stamp=$(strings bangor.pdf | grep -oE 'bangor [0-9/]+ v[0-9]+' | head -1)
+          if [ -z "$stamp" ]; then
+            echo "version stamp missing from the PDF metadata"
+            exit 1
+          fi
+          echo "PDF stamp: $stamp"
           if grep -E "Reference .* undefined|Citation .* undefined|multiply defined" doc/bangor.log; then
             echo "assertion failed: doc/bangor.log matches"
             exit 1
@@ -205,6 +224,18 @@ jobs:
           mktexlsr "$HOME/texmf"
       - name: Build CTAN archive
         run: texlua l3build/l3build.lua ctan
+      - name: Validate archive contents
+        run: |
+          status=0
+          for f in bangor.sty bangoridentity.sty bangorlayout.sty \
+                   bangordeclarations.sty bangorletter.sty bangorthesis.cls \
+                   bangor-crest-colour.pdf README.md LICENSE; do
+            if ! unzip -l bangor-ctan.zip | grep -q "$f"; then
+              echo "missing from archive: $f"
+              status=1
+            fi
+          done
+          exit $status
       - uses: actions/upload-artifact@v4
         with:
           name: ctan-archive
