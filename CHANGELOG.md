@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/Mearman/bangor/compare/v3.0.0...v4.0.0) (2026-09-20)
+
+
+* feat!: print Page N of M and number each appendix on its own by default ([ee39c9d](https://github.com/Mearman/bangor/commit/ee39c9d064790e4c0cd159f3f23041df7c59b482))
+
+
+### BREAKING CHANGES
+
+* page numbers in existing documents change. The footer
+now reads "Page N of M" and appendix pages are numbered per appendix.
+Set pageofm=false and appendixpages=false in the class options to keep
+the previous numbering.
+
 # [3.0.0](https://github.com/Mearman/bangor/compare/v2.3.0...v3.0.0) (2026-09-20)
 
 

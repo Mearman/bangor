@@ -6,7 +6,7 @@
 % bangorcsthesis class by Cameron Gray, Bangor University. Released
 % under the LaTeX Project Public License, version 1.3c or later.
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{bangorthesis}[2026/09/20 v3.0.0 Bangor University thesis and dissertation class]
+\ProvidesClass{bangorthesis}[2026/09/20 v4.0.0 Bangor University thesis and dissertation class]
 
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{family=bts,prefix=bts@}
