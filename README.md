@@ -33,9 +33,9 @@ Set the document facts in the preamble, then build the front matter:
 ```latex
 \school{School of Computer Science and Engineering}
 \college{College of Science and Engineering}
-\degreeScheme{Doctor of Philosophy}
+\degreescheme{Doctor of Philosophy}
 \supervisor{Dr A. Supervisor}
-\bibliographySetup
+\bibliographysetup
 \addbibresource{references.bib}
 
 \begin{document}

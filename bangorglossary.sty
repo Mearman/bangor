@@ -4,8 +4,8 @@
 % time compared to the full glossaries package's dependency chain.
 %
 % \addabbrev{SHORT}{Full Name} registers an abbreviation.
-% \gls{SHORT} prints the full form on first use, the short form after.
-% \Gls{SHORT} does the same with a capitalised first word.
+% \useabbrev{SHORT} prints the full form on first use, the short form after.
+% \Useabbrev{SHORT} does the same with a capitalised first word.
 % \printabbrevs emits an alphabetically sorted description list.
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{bangorglossary}[2026/09/20 v1.1.2 Bangor University abbreviations]
@@ -29,8 +29,8 @@
   \bool_gset_false:c { g_bangor_abbrev_ #1 _used_bool }
 }
 
-% \bangor_gls:n {short} — short form or full form on first use
-\cs_new:Npn \bangor_gls:n #1
+% \bangor_use_abbrev:n {short} — short form or full form on first use
+\cs_new:Npn \bangor_use_abbrev:n #1
 {
   \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
   {
@@ -47,8 +47,8 @@
   }
 }
 
-% \bangor_gls_cap:n {short} — same but capitalise the first word
-\cs_new:Npn \bangor_gls_cap:n #1
+% \bangor_use_abbrev_cap:n {short} — same but capitalise the first word
+\cs_new:Npn \bangor_use_abbrev_cap:n #1
 {
   \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
   {
@@ -93,11 +93,11 @@
 \NewDocumentCommand { \addabbrev } { m m }
 { \bangor_add_abbrev:nn { #1 } { #2 } }
 
-\NewDocumentCommand { \gls } { m }
-{ \bangor_gls:n { #1 } }
+\NewDocumentCommand { \useabbrev } { m }
+{ \bangor_use_abbrev:n { #1 } }
 
-\NewDocumentCommand { \Gls } { m }
-{ \bangor_gls_cap:n { #1 } }
+\NewDocumentCommand { \Useabbrev } { m }
+{ \bangor_use_abbrev_cap:n { #1 } }
 
 \NewDocumentCommand { \printabbrevs } { }
 { \bangor_print_abbrevs: }

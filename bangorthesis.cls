@@ -35,7 +35,7 @@
 \DeclareVoidOption{meng}{\def\bts@submission{dissertation}}
 \DeclareVoidOption{msci}{\def\bts@submission{dissertation}}
 
-% Citation style passed to biblatex through \bibliographySetup. Any
+% Citation style passed to biblatex through \bibliographysetup. Any
 % biblatex style name is valid; ieee is the default because the
 % founding use is computer science.
 \DeclareStringOption[ieee]{citations}[ieee]
@@ -108,7 +108,7 @@
 
 % Bibliography setup. Call once in the preamble, optionally with a
 % biblatex style name; the default comes from the citations option.
-\newcommand{\bibliographySetup}[1][\bts@citations]{%
+\newcommand{\bibliographysetup}[1][\bts@citations]{%
   \RequirePackage[backend=biber,style=#1]{biblatex}}
 
 % Title page. In print mode a blank page precedes it so that duplex

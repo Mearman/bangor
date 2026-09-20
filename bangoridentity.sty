@@ -13,7 +13,7 @@
 % Metadata storage. Defaults are empty; consumers render conditionally.
 \newcommand{\school}[1]{\gdef\bgi@school{#1}}
 \newcommand{\college}[1]{\gdef\bgi@college{#1}}
-\newcommand{\degreeScheme}[1]{\gdef\bgi@degree{#1}}
+\newcommand{\degreescheme}[1]{\gdef\bgi@degree{#1}}
 \newcommand{\submissiondate}[1]{\gdef\bgi@date{#1}}
 \def\bgi@school{}
 \def\bgi@college{}
@@ -22,7 +22,7 @@
 
 % Taught dissertations commonly must state their word count. When set,
 % consumers print it; research degrees leave it unset.
-\newcommand{\wordcount}[1]{\gdef\bgi@wordcount{#1}}
+\newcommand{\submissionwordcount}[1]{\gdef\bgi@wordcount{#1}}
 \def\bgi@wordcount{}
 
 % Supervisors accumulate in declaration order, separated for typesetting.

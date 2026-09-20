@@ -192,7 +192,7 @@ jobs:
           body = "word " * 620
           doc = ("\\documentclass[phd,12pt,a4paper]{bangorthesis}\n"
                  "\\title{Long Abstract Test}\n\\author{E. Student}\n"
-                 "\\degreeScheme{Doctor of Philosophy}\n\\begin{document}\n"
+                 "\\degreescheme{Doctor of Philosophy}\n\\begin{document}\n"
                  "\\begin{abstract}\n" + body + "\n\\end{abstract}\n"
                  "\\end{document}\n")
           with open("tests/smoke/long-abstract.tex", "w") as fh:
