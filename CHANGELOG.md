@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/Mearman/bangor/compare/v1.0.3...v1.0.4) (2026-09-20)
+
+
+### Bug Fixes
+
+* pdfinfo for metadata, correct output paths ([f7799ad](https://github.com/Mearman/bangor/commit/f7799ad2254bc74f6ea7f6db337b0e6b910d7339))
+* pdfinfo Subject for the metadata assertion, correct log paths ([b2f946b](https://github.com/Mearman/bangor/commit/b2f946b6c51d03c6832f54c045398dc434473fc2))
+
 ## [1.0.3](https://github.com/Mearman/bangor/compare/v1.0.2...v1.0.3) (2026-09-19)
 
 
