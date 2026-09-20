@@ -263,13 +263,13 @@ jobs:
             status=1
           fi
           appendix_text=$(pdftotext -layout numbering-appendix.pdf -)
-          for expected in "Appendix A - Page 1" "Appendix A - Page 2" "Appendix B - Page 1" "A-1"; do
+          for expected in "Appendix A - Page 1 of 2" "Appendix A - Page 2 of 2" "Appendix B - Page 1 of 1" "A-1"; do
             if ! printf '%s\n' "$appendix_text" | grep -q -- "$expected"; then
               echo "numbering-appendix: missing $expected"
               status=1
             fi
           done
-          last=$(printf '%s\n' "$appendix_text" | grep -oE "Page [0-9]+ of [0-9]+" | tail -1)
+          last=$(printf '%s\n' "$appendix_text" | grep -v "Appendix" | grep -oE "Page [0-9]+ of [0-9]+" | tail -1)
           if ! printf '%s\n' "$last" | awk '{ exit !($2 == $4) }'; then
             echo "numbering-appendix: the last main page should read Page N of N, found: ${last:-nothing}"
             status=1

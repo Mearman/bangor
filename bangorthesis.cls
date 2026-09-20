@@ -64,7 +64,7 @@
 \DeclareStringOption[hairline]{footrule}[hairline]
 \DeclareBoolOption[true]{pageofm}
 
-% Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. The count restarts at each appendix and prints "Appendix A - Page n", and appendixpages=false continues the arabic sequence of the main text through the appendices instead.
+% Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. The count restarts at each appendix and prints "Appendix A - Page n of m" with pageofm, and appendixpages=false continues the arabic sequence of the main text through the appendices instead.
 \DeclareBoolOption[true]{appendixpages}
 
 % Float numbering, on by default. sharedfloats puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3, and sharedfloats=false gives each type its own counter. sectionfloats numbers floats within their section, so the first float in section 5.1 is 5.1.1. Its value says what a float before the first section of a chapter is called: chapter numbers it by the chapter alone (5.1), zero numbers it by section zero (5.0.1), and none turns section numbering off so floats are numbered within their chapter. The two options combine.
@@ -258,24 +258,36 @@
   \ifbts@appendixnumbering\setcounter{page}{1}\fi}
 \pretocmd{\@chapter}{\bts@chapterhook}{}{}
 
-% The label that supplies M in "Page N of M". Without appendix numbering it is written once the last page has shipped, because a label placed in the text is lost when the document ends on a float page, where nothing follows it to carry it onto a page. With it, it sits on the last page before the appendices, because the appendix pages carry their own count.
-\apptocmd{\appendix}{%
-  \ifbts@appendixpages
-    \bts@appendixstyletrue
-    \label{bts@lastpage}%
-  \fi}{}{}
-\AtEndDocument{%
-  \ifbts@appendixstyle\else
+% The labels that supply M in "Page N of M". Each is written to the auxiliary file after the last page it names has shipped, because a label placed in the text is lost when the document ends on a float page, where nothing follows it to carry it onto a page. Without appendix numbering there is one, on the last page of the document. With it, bts@lastpage names the last page before the appendices, and each appendix has its own, bts@appendix@A and so on, naming its last page in the appendix count. A chapter command closes the section before it, and the end of the document closes the last one. Each label is written once, so a starred chapter after the appendices does not write a second.
+\newcommand{\bts@writelast}[1]{%
+  \@ifundefined{bts@written@#1}{%
+    \global\@namedef{bts@written@#1}{}%
     \clearpage
     \addtocounter{page}{-1}%
-    \immediate\write\@auxout{\string\newlabel{bts@lastpage}{{}{\thepage}{}{}{}}}%
-    \addtocounter{page}{1}%
+    \immediate\write\@auxout{\string\newlabel{#1}{{}{\@arabic\c@page}{}{}{}}}%
+    \addtocounter{page}{1}}{}}
+\newcommand{\bts@closesection}{%
+  \ifbts@appendixstyle
+    \ifbts@appendixnumbering
+      \bts@writelast{bts@appendix@\thechapter}%
+    \else
+      \bts@writelast{bts@lastpage}%
+    \fi
+  \fi}
+\pretocmd{\chapter}{\bts@closesection}{}{}
+\apptocmd{\appendix}{\ifbts@appendixpages\bts@appendixstyletrue\fi}{}{}
+\AtEndDocument{%
+  \ifbts@appendixnumbering
+    \bts@writelast{bts@appendix@\thechapter}%
+  \else
+    \bts@writelast{bts@lastpage}%
   \fi}
 
-% The page number in the main matter, optionally as "Page N of M".
+% The page number in the main matter, optionally as "Page N of M". In an appendix the number and the total count within that appendix.
 \newcommand{\bts@pagenumber}{%
   \ifbts@appendixnumbering
     Appendix~\thechapter{} - Page~\arabic{page}%
+    \ifbts@pageofm~of~\pageref{bts@appendix@\thechapter}\fi
   \else
     \ifbts@pageofm Page~\thepage~of~\pageref{bts@lastpage}\else\thepage\fi
   \fi}
