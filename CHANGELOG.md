@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/Mearman/bangor/compare/v2.0.0...v2.1.0) (2026-09-20)
+
+
+### Features
+
+* configurable headers and footers with strict overflow checks ([6e4cf50](https://github.com/Mearman/bangor/commit/6e4cf50442ceeb453ea786f5deaca254c3e8defa))
+* **identity:** add shorttitle for the running footer ([2d59713](https://github.com/Mearman/bangor/commit/2d5971349f8296cf1ba130e22422df007852aee9))
+
 # [2.0.0](https://github.com/Mearman/bangor/compare/v1.3.0...v2.0.0) (2026-09-20)
 
 
