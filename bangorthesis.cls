@@ -258,13 +258,19 @@
   \ifbts@appendixnumbering\setcounter{page}{1}\fi}
 \pretocmd{\@chapter}{\bts@chapterhook}{}{}
 
-% The label that supplies M in "Page N of M". Without appendix numbering it sits on the last page of the document. With it, it sits on the last page before the appendices, because the appendix pages carry their own count.
+% The label that supplies M in "Page N of M". Without appendix numbering it is written once the last page has shipped, because a label placed in the text is lost when the document ends on a float page, where nothing follows it to carry it onto a page. With it, it sits on the last page before the appendices, because the appendix pages carry their own count.
 \apptocmd{\appendix}{%
   \ifbts@appendixpages
     \bts@appendixstyletrue
     \label{bts@lastpage}%
   \fi}{}{}
-\AtEndDocument{\ifbts@appendixstyle\else\label{bts@lastpage}\fi}
+\AtEndDocument{%
+  \ifbts@appendixstyle\else
+    \clearpage
+    \addtocounter{page}{-1}%
+    \immediate\write\@auxout{\string\newlabel{bts@lastpage}{{}{\thepage}{}{}{}}}%
+    \addtocounter{page}{1}%
+  \fi}
 
 % The page number in the main matter, optionally as "Page N of M".
 \newcommand{\bts@pagenumber}{%
