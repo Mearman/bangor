@@ -166,6 +166,70 @@ jobs:
             status=1
           fi
           exit $status
+      - name: Compile layout fixtures and assert header and footer content
+        run: |
+          status=0
+          for f in layout-default layout-options header-short; do
+            latexmk -pdf -interaction=nonstopmode "tests/smoke/$f.tex" || status=1
+            if grep -E "^!" "$f.log"; then status=1; fi
+            if grep -E "Reference .* undefined|multiply defined" "$f.log"; then status=1; fi
+          done
+          text=$(pdftotext -layout layout-default.pdf -)
+          if ! printf '%s\n' "$text" | grep -qE "1\. Introduction +1\.2\. Second section"; then
+            echo "default header layout missing: chapter left and section right"
+            status=1
+          fi
+          if ! printf '%s\n' "$text" | grep -q "A Reasonably Sized Thesis Title"; then
+            echo "the footer does not fall back to the full title"
+            status=1
+          fi
+          last=$(pdfinfo layout-options.pdf | awk '/^Pages:/ {print $2}')
+          tail_text=$(pdftotext -f "$last" -l "$last" -layout layout-options.pdf -)
+          pageofm=$(printf '%s\n' "$tail_text" | grep -oE "Page [0-9]+ of [0-9]+" | head -1)
+          if ! printf '%s\n' "$pageofm" | awk '{ exit !($2 == $4) }'; then
+            echo "the last page should read Page N of N, found: ${pageofm:-nothing}"
+            status=1
+          fi
+          if ! printf '%s\n' "$tail_text" | grep -q "Short Title"; then
+            echo "the short title is missing from the footer"
+            status=1
+          fi
+          if ! pdftotext -layout header-short.pdf - | grep -qE "2\. Methods +2\.1\. Only section"; then
+            echo "the kernel short title did not reach the running header"
+            status=1
+          fi
+          exit $status
+      - name: Assert header and footer overflow fail in strict mode and truncate otherwise
+        run: |
+          status=0
+          for spec in "header-fail:too wide for the running header" "footer-fail:too wide for the footer"; do
+            f="${spec%%:*}"
+            msg="${spec#*:}"
+            if latexmk -pdf -interaction=nonstopmode "tests/smoke/$f.tex" >/dev/null 2>&1; then
+              echo "$f compiled in strict mode; the check is broken"
+              status=1
+            elif ! tr -d '\n' < "$f.log" | grep -q "$msg"; then
+              echo "$f failed without the expected message: $msg"
+              status=1
+            fi
+            latexmk -C "tests/smoke/$f.tex" >/dev/null 2>&1
+            sed 's/\[phd,/[phd,strict=false,/' "tests/smoke/$f.tex" > "tests/smoke/$f-warn.tex"
+            if ! latexmk -pdf -interaction=nonstopmode "tests/smoke/$f-warn.tex" >/dev/null 2>&1; then
+              echo "$f did not compile with strict=false"
+              status=1
+            fi
+            if ! tr -d '\n' < "$f-warn.log" | grep -q "Warning: .*$msg"; then
+              echo "$f-warn compiled without the expected warning: $msg"
+              status=1
+            fi
+            if ! pdftotext -layout "$f-warn.pdf" - | grep -q "\. \. \."; then
+              echo "$f-warn was not truncated with an ellipsis"
+              status=1
+            fi
+            latexmk -C "tests/smoke/$f-warn.tex" >/dev/null 2>&1
+            rm -f "tests/smoke/$f-warn.tex" "$f-warn".*
+          done
+          exit $status
       - name: Fetch l3build for the regression checks
         run: |
           curl -sL -o l3build.zip \
