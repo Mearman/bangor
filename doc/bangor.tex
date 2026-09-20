@@ -173,14 +173,16 @@ Start with \verb|\documentclass[phd,12pt,a4paper]{bangorthesis}|.
   \item \verb|headrule| and \verb|footrule| set the rule below the header and
         the rule above the footer. Each takes \verb|hairline| (the default),
         \verb|visible|, or \verb|none|. The two options work separately.
-  \item \verb|pageofm| prints the page number as ``Page N of M''.
-  \item \verb|appendixpages| numbers each appendix separately. The title page
-        carries no number, the front matter is numbered in roman numerals,
-        and the numbering restarts in arabic at the first numbered chapter.
-        Appendices continue the arabic sequence unless this option is set.
-        With it, the count restarts at each appendix and the footer reads
-        ``Appendix A - Page n''. Then M in ``Page N of M'' is the last page
-        of the main text, not of the document.
+  \item \verb|pageofm| is on by default and prints the page number as
+        ``Page N of M''. \verb|pageofm=false| prints the number alone.
+  \item \verb|appendixpages| is on by default and numbers each appendix
+        separately. The title page carries no number, the front matter is
+        numbered in roman numerals, and the numbering restarts in arabic at
+        the first numbered chapter. The count restarts at each appendix and
+        the footer reads ``Appendix A - Page n''. Then M in ``Page N of M''
+        is the last page of the main text, not of the document.
+        \verb|appendixpages=false| continues the arabic sequence through
+        the appendices.
   \item \verb|sharedfloats| is on by default and puts figures, tables,
         listings, and algorithms on one counter, so the sequence reads
         Figure 1, Table 2, Listing 3. \verb|sharedfloats=false| gives each
