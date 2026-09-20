@@ -25,6 +25,11 @@
 \newcommand{\submissionwordcount}[1]{\gdef\bgi@wordcount{#1}}
 \def\bgi@wordcount{}
 
+% A short form of the title for the running footer. When it is unset,
+% consumers fall back to the full title.
+\newcommand{\shorttitle}[1]{\gdef\bgi@shorttitle{#1}}
+\def\bgi@shorttitle{}
+
 % Supervisors accumulate in declaration order, separated for typesetting.
 \def\bgi@supervisors{}
 \newcommand{\supervisor}[1]{%
