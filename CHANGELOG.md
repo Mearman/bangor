@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Mearman/bangor/compare/v1.1.1...v1.2.0) (2026-09-20)
+
+
+### Features
+
+* table support via xltabular, glossary abbreviations, running headers replacing markdraft ([304f085](https://github.com/Mearman/bangor/commit/304f085df62d83e931ec94b4d48331d52f05ab70))
+
 ## [1.1.1](https://github.com/Mearman/bangor/compare/v1.1.0...v1.1.1) (2026-09-20)
 
 
