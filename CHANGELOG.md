@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Mearman/bangor/compare/v1.1.0...v1.1.1) (2026-09-20)
+
+
+### Bug Fixes
+
+* drop the capitalise option so cref and Cref differ as documented ([f59ca6b](https://github.com/Mearman/bangor/commit/f59ca6b587113918b71d63260e9a87ced1b9eba8))
+
 # [1.1.0](https://github.com/Mearman/bangor/compare/v1.0.4...v1.1.0) (2026-09-20)
 
 
