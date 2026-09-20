@@ -33,14 +33,14 @@
 \cs_new_protected:Npn \bangor_write_page:n #1
 {
   \protected@write \@auxout { }
-    { \string \bangorabbrevpage { #1 } { \thepage } }
+  { \string \bangorabbrevpage { #1 } { \thepage } }
 }
 \cs_new_protected:Npn \bangor_record_page:nn #1 #2
 {
   \seq_if_exist:cF { g_bangor_abbrev_ #1 _pages_seq }
-    { \seq_new:c { g_bangor_abbrev_ #1 _pages_seq } }
+  { \seq_new:c { g_bangor_abbrev_ #1 _pages_seq } }
   \seq_if_in:cnF { g_bangor_abbrev_ #1 _pages_seq } { #2 }
-    { \seq_gput_right:cn { g_bangor_abbrev_ #1 _pages_seq } { #2 } }
+  { \seq_gput_right:cn { g_bangor_abbrev_ #1 _pages_seq } { #2 } }
 }
 
 % \bangor_use_abbrev:n {short} — short form or full form on first use
@@ -91,8 +91,8 @@
 \cs_new_protected:Npn \bangor_page_out:n #1
 {
   \bool_if:NTF \l_bangor_run_first_bool
-    { \bool_set_false:N \l_bangor_run_first_bool }
-    { ,~ }
+  { \bool_set_false:N \l_bangor_run_first_bool }
+  { ,~ }
   \cs_if_exist:NTF \hyperpage { \hyperpage { #1 } } { #1 }
 }
 
@@ -105,12 +105,12 @@
         \bangor_page_out:n { \int_use:N \l_bangor_run_start_int }
         --
         \cs_if_exist:NTF \hyperpage
-          { \hyperpage { \int_use:N \l_bangor_run_end_int } }
-          { \int_use:N \l_bangor_run_end_int }
+        { \hyperpage { \int_use:N \l_bangor_run_end_int } }
+        { \int_use:N \l_bangor_run_end_int }
       }
       {
         \int_step_inline:nnn { \l_bangor_run_start_int } { \l_bangor_run_end_int }
-          { \bangor_page_out:n { ##1 } }
+        { \bangor_page_out:n { ##1 } }
       }
     \bool_set_false:N \l_bangor_run_open_bool
   }
@@ -119,36 +119,36 @@
 \cs_new_protected:Npn \bangor_page_step:n #1
 {
   \regex_match:nnTF { \A \d+ \Z } { #1 }
+  {
+    \bool_if:NT \l_bangor_run_open_bool
     {
-      \bool_if:NT \l_bangor_run_open_bool
-        {
-          \int_compare:nNnF { #1 } = { \l_bangor_run_end_int + 1 }
-            { \bangor_run_flush: }
-        }
-      \bool_if:NTF \l_bangor_run_open_bool
-        { \int_set:Nn \l_bangor_run_end_int { #1 } }
-        {
-          \int_set:Nn \l_bangor_run_start_int { #1 }
-          \int_set:Nn \l_bangor_run_end_int { #1 }
-          \bool_set_true:N \l_bangor_run_open_bool
-        }
+      \int_compare:nNnF { #1 } = { \l_bangor_run_end_int + 1 }
+        { \bangor_run_flush: }
     }
+    \bool_if:NTF \l_bangor_run_open_bool
+    { \int_set:Nn \l_bangor_run_end_int { #1 } }
     {
-      \bangor_run_flush:
-      \bangor_page_out:n { #1 }
+      \int_set:Nn \l_bangor_run_start_int { #1 }
+      \int_set:Nn \l_bangor_run_end_int { #1 }
+      \bool_set_true:N \l_bangor_run_open_bool
     }
+  }
+  {
+    \bangor_run_flush:
+    \bangor_page_out:n { #1 }
+  }
 }
 
 \cs_new_protected:Npn \bangor_print_pages:n #1
 {
   \seq_if_exist:cT { g_bangor_abbrev_ #1 _pages_seq }
   {
-    \nobreak \dotfill \nobreak \ 
+    \nobreak \dotfill \nobreak \
     \group_begin:
-      \bool_set_true:N \l_bangor_run_first_bool
-      \bool_set_false:N \l_bangor_run_open_bool
-      \seq_map_function:cN { g_bangor_abbrev_ #1 _pages_seq } \bangor_page_step:n
-      \bangor_run_flush:
+    \bool_set_true:N \l_bangor_run_first_bool
+    \bool_set_false:N \l_bangor_run_open_bool
+    \seq_map_function:cN { g_bangor_abbrev_ #1 _pages_seq } \bangor_page_step:n
+    \bangor_run_flush:
     \group_end:
   }
 }
