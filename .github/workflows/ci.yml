@@ -149,6 +149,23 @@ jobs:
             status=1
           fi
           exit $status
+      - name: Compile table and abbreviation fixture
+        run: |
+          status=0
+          latexmk -pdf -interaction=nonstopmode tests/smoke/tables-glossary.tex || status=1
+          if grep -E "^!" tables-glossary.log; then status=1; fi
+          if grep -E "Unknown abbreviation|multiply defined" tables-glossary.log; then status=1; fi
+          text=$(pdftotext -layout tables-glossary.pdf -)
+          if ! printf '%s\n' "$text" | grep -q "Machine learning (ML)"; then
+            echo "first-use expansion missing from the abbreviations output"
+            status=1
+          fi
+          repeats=$(printf '%s\n' "$text" | grep -cE "Item +Description +Value" || true)
+          if [ "$repeats" -lt 2 ]; then
+            echo "the longtable header did not repeat on a continuation page"
+            status=1
+          fi
+          exit $status
       - name: Fetch l3build for the regression checks
         run: |
           curl -sL -o l3build.zip \
