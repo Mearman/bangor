@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/Mearman/bangor/compare/v1.2.2...v1.3.0) (2026-09-20)
+
+
+### Bug Fixes
+
+* use kernel str_compare instead of redefining it ([1f284d4](https://github.com/Mearman/bangor/commit/1f284d48242ee697a2e1c9db732f319376d7b625))
+
+
+### Features
+
+* zero-dependency abbreviations module, headheight fix, lstlisting cref ([9f31375](https://github.com/Mearman/bangor/commit/9f31375d3987667f4b832d8da2ea462349827356))
+
 ## [1.2.2](https://github.com/Mearman/bangor/compare/v1.2.1...v1.2.2) (2026-09-20)
 
 
