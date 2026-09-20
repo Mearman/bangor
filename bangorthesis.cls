@@ -82,8 +82,6 @@
 \RequirePackage{bangordeclarations}
 \RequirePackage{microtype}
 \RequirePackage{environ}
-\RequirePackage{bangortables}
-\RequirePackage{bangorglossary}
 \RequirePackage[hidelinks]{hyperref}
 % cleveref must load after hyperref. nameinlink makes the reference
 % text itself a hyperlink. Capitalisation is left to the document:
