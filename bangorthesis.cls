@@ -66,9 +66,9 @@
 % Page numbering. The title page carries no number, the front matter is numbered in roman numerals, and the numbering restarts in arabic at the first numbered chapter. Appendices continue the arabic sequence unless appendixpages is set, which restarts the count at each appendix and prints "Appendix A - Page n".
 \DeclareBoolOption[false]{appendixpages}
 
-% Float numbering. sharedfloats puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3. sectionfloats numbers floats within their section, so the first float in section 5.1 is 5.1.1. Its value says what a float before the first section of a chapter is called: chapter numbers it by the chapter alone (5.1), and zero numbers it by section zero (5.0.1). The two options combine.
-\DeclareBoolOption[false]{sharedfloats}
-\DeclareStringOption[none]{sectionfloats}[chapter]
+% Float numbering, on by default. sharedfloats puts every float type on one counter, so the sequence reads Figure 1, Table 2, Listing 3, and sharedfloats=false gives each type its own counter. sectionfloats numbers floats within their section, so the first float in section 5.1 is 5.1.1. Its value says what a float before the first section of a chapter is called: chapter numbers it by the chapter alone (5.1), zero numbers it by section zero (5.0.1), and none turns section numbering off so floats are numbered within their chapter. The two options combine.
+\DeclareBoolOption[true]{sharedfloats}
+\DeclareStringOption[chapter]{sectionfloats}[chapter]
 
 % Everything else (12pt, a4paper, oneside, twoside, draft, final)
 % passes through to the report class.
