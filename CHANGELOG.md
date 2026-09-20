@@ -1,3 +1,15 @@
+# [4.1.0](https://github.com/Mearman/bangor/compare/v4.0.0...v4.1.0) (2026-09-20)
+
+
+### Bug Fixes
+
+* write the last page number after the final page has shipped ([6099b24](https://github.com/Mearman/bangor/commit/6099b242dc702ff57307f2aa8d9a7197c2af93fa))
+
+
+### Features
+
+* give the list of abbreviations a heading and the pages that use each entry ([c7bfc5e](https://github.com/Mearman/bangor/commit/c7bfc5efed302fa78c8d4774047758fb322d677e))
+
 # [4.0.0](https://github.com/Mearman/bangor/compare/v3.0.0...v4.0.0) (2026-09-20)
 
 
