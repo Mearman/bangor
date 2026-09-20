@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/Mearman/bangor/compare/v4.1.0...v4.1.1) (2026-09-20)
+
+
+### Bug Fixes
+
+* print the total pages of each appendix in the appendix footer ([8060988](https://github.com/Mearman/bangor/commit/80609886edfc55e44330b2a752d7a3b435d550f3))
+
 # [4.1.0](https://github.com/Mearman/bangor/compare/v4.0.0...v4.1.0) (2026-09-20)
 
 
