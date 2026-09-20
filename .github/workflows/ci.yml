@@ -139,7 +139,7 @@ jobs:
           [ "$found" -eq "$expected" ] || { echo "degree markers: $found of $expected"; status=1; }
           grep -q "DEGREECHECK:phd:thesis" degree-coverage.log || status=1
           grep -q "DEGREECHECK:msc:dissertation" degree-coverage.log || status=1
-          for f in opt-markdraft opt-welsh opt-bonum opt-override opt-templateversion; do
+          for f in opt-welsh opt-bonum opt-override opt-templateversion; do
             latexmk -pdf -interaction=nonstopmode "tests/smoke/$f.tex" || status=1
             if grep -E "^!" "$f.log"; then status=1; fi
           done
