@@ -1,3 +1,11 @@
+## [1.2.2](https://github.com/Mearman/bangor/compare/v1.2.1...v1.2.2) (2026-09-20)
+
+
+### Bug Fixes
+
+* amsmath loads before cleveref so the glossary module doesn't break load order ([f507133](https://github.com/Mearman/bangor/commit/f5071334c2840a36e067d699973d11d23896fed2))
+* bangortables and bangorglossary are opt-in, not loaded by default ([2152482](https://github.com/Mearman/bangor/commit/2152482a9938001b7c58ab9b19f77a424b385de1))
+
 ## [1.2.1](https://github.com/Mearman/bangor/compare/v1.2.0...v1.2.1) (2026-09-20)
 
 
