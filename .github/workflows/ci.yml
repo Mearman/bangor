@@ -90,18 +90,18 @@ jobs:
       - name: Compile documentation
         run: |
           latexmk -pdf -interaction=nonstopmode doc/bangor.tex
-          if grep -E "^!" doc/bangor.log; then
-            echo "assertion failed: doc/bangor.log matches"
+          if grep -E "^!" bangor.log; then
+            echo "assertion failed: bangor.log matches"
             exit 1
           fi
-          stamp=$(strings bangor.pdf | grep -oE 'bangor [0-9/]+ v[0-9]+' | head -1)
+          stamp=$(pdfinfo bangor.pdf | grep Subject | grep -oE 'bangor [0-9/]+ v[0-9]+' | head -1)
           if [ -z "$stamp" ]; then
             echo "version stamp missing from the PDF metadata"
             exit 1
           fi
           echo "PDF stamp: $stamp"
-          if grep -E "Reference .* undefined|Citation .* undefined|multiply defined" doc/bangor.log; then
-            echo "assertion failed: doc/bangor.log matches"
+          if grep -E "Reference .* undefined|Citation .* undefined|multiply defined" bangor.log; then
+            echo "assertion failed: bangor.log matches"
             exit 1
           fi
       - name: Compile positive smoke tests
