@@ -82,8 +82,9 @@
 \RequirePackage{bangordeclarations}
 \RequirePackage{microtype}
 \RequirePackage{environ}
+\RequirePackage{amsmath}
 \RequirePackage[hidelinks]{hyperref}
-% cleveref must load after hyperref. nameinlink makes the reference
+% cleveref must load after hyperref AND amsmath. nameinlink makes the reference
 % text itself a hyperlink. Capitalisation is left to the document:
 % \cref produces lowercase type names mid-sentence, \Cref produces
 % uppercase at a sentence opening, and the capitalise package option
