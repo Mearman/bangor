@@ -286,10 +286,10 @@
 % The page number in the main matter, optionally as "Page N of M". In an appendix the number and the total count within that appendix.
 \newcommand{\bts@pagenumber}{%
   \ifbts@appendixnumbering
-    Appendix~\thechapter{} - Page~\arabic{page}%
-    \ifbts@pageofm~of~\pageref{bts@appendix@\thechapter}\fi
+  Appendix~\thechapter{} - Page~\arabic{page}%
+  \ifbts@pageofm~of~\pageref{bts@appendix@\thechapter}\fi
   \else
-    \ifbts@pageofm Page~\thepage~of~\pageref{bts@lastpage}\else\thepage\fi
+  \ifbts@pageofm Page~\thepage~of~\pageref{bts@lastpage}\else\thepage\fi
   \fi}
 
 % Names in the header may use this share of the text width each. Chapter and section names that repeat one another (contents, bibliography) show once.
