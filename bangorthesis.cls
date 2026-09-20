@@ -86,6 +86,11 @@
 \RequirePackage{microtype}
 \RequirePackage{environ}
 \RequirePackage[hidelinks]{hyperref}
+% cleveref must load after hyperref. The capitalise option produces
+% "Figure 1" and "Table 2" from \cref, matching the convention of
+% naming the type explicitly, so templates reference content with
+% \cref{label} alone.
+\RequirePackage[capitalise,nameinlink]{cleveref}
 \ifbts@welsh
   \RequirePackage[welsh]{babel}
 \fi
