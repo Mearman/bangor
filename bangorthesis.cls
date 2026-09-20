@@ -264,10 +264,10 @@
 % A name too wide for the header is a build error in strict mode and is truncated with a warning otherwise. The kernel short-title syntax, \chapter[Short]{Long}, passes the short title to these marks, so the check runs on the title that will be printed.
 \newcommand{\bts@checkwidth}[3]{%
   \begingroup
-    \settowidth{\@tempdima}{\small\itshape #2}%
-    \ifdim\@tempdima>\bts@maxheader\relax
-      \bangorregulationviolation{#1 is too wide for the running header (\the\@tempdima, and the maximum is \the\dimexpr\bts@maxheader\relax). #3}%
-    \fi
+  \settowidth{\@tempdima}{\small\itshape #2}%
+  \ifdim\@tempdima>\bts@maxheader\relax
+    \bangorregulationviolation{#1 is too wide for the running header (\the\@tempdima, and the maximum is \the\dimexpr\bts@maxheader\relax). #3}%
+  \fi
   \endgroup}
 \renewcommand{\chaptermark}[1]{%
   \bts@checkwidth{Chapter \thechapter}{\thechapter.\ #1}{Use \string\chapter[Short title]\string{Long title\string} to set a shorter running title.}%
@@ -280,22 +280,22 @@
 \def\bts@skipbracket[#1]{\space}
 \newcommand{\bts@checkfooter}[2]{%
   \begingroup
-    \settowidth{\@tempdima}{\footnotesize\itshape\bts@footertext}%
-    \ifdim\@tempdima>0.4\textwidth\relax
-      \bangorregulationviolation{#1 (\the\@tempdima, and the maximum is \the\dimexpr0.4\textwidth\relax). #2}%
-    \fi
+  \settowidth{\@tempdima}{\footnotesize\itshape\bts@footertext}%
+  \ifdim\@tempdima>0.4\textwidth\relax
+    \bangorregulationviolation{#1 (\the\@tempdima, and the maximum is \the\dimexpr0.4\textwidth\relax). #2}%
+  \fi
   \endgroup}
 \AtBeginDocument{%
-  \ifx\bgi@shorttitle\@empty
-    \begingroup
-      \def\\{\@ifnextchar[{\bts@skipbracket}{\space}}%
-      \protected@xdef\bts@footertext{\@title}%
-    \endgroup
-    \bts@checkfooter{The title is too wide for the footer}{Set \string\shorttitle\string{Short title\string} in the preamble.}%
-  \else
-    \let\bts@footertext\bgi@shorttitle
-    \bts@checkfooter{The short title is too wide for the footer}{Use a shorter \string\shorttitle.}%
-  \fi}
+\ifx\bgi@shorttitle\@empty
+\begingroup
+\def\\{\@ifnextchar[{\bts@skipbracket}{\space}}%
+\protected@xdef\bts@footertext{\@title}%
+\endgroup
+\bts@checkfooter{The title is too wide for the footer}{Set \string\shorttitle\string{Short title\string} in the preamble.}%
+\else
+\let\bts@footertext\bgi@shorttitle
+\bts@checkfooter{The short title is too wide for the footer}{Use a shorter \string\shorttitle.}%
+\fi}
 
 % cleveref does not auto-detect the listings package's lstlisting
 % counter because listings loads after cleveref (it is a template-level
