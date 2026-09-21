@@ -106,6 +106,8 @@
 \RequirePackage{environ}
 \RequirePackage{etoolbox}
 \RequirePackage{amsmath}
+% float is loaded first because a package that loads it after hyperref, as algorithm does, leaves every table and figure with a duplicate PDF destination, and the class cannot control what a document loads later.
+\RequirePackage{float}
 % plainpages=false keeps the page anchors of the roman, arabic and per-appendix numberings distinct.
 \RequirePackage[hidelinks,plainpages=false]{hyperref}
 % cleveref must load after hyperref AND amsmath. nameinlink makes the reference
