@@ -47,6 +47,8 @@
 % default as the fallback.
 \newif\ifbgl@serif
 \newif\ifbgl@heros
+% T1 is loaded before any font package so that the fonts are set up in it. The legacy OT1 encoding has no typewriter backslash, so \texttt{\textbackslash} in a document warned about a missing font shape, and T1 also sets accented Welsh letters as single glyphs.
+\RequirePackage[T1]{fontenc}
 \bgl@seriftrue
 \bgl@herosfalse
 \def\bgl@choicetermes{termes}
