@@ -431,6 +431,23 @@
   \fi}
 \AddToHook{begindocument/end}{\bts@shareorfloat}
 
+% Captions with descriptions. The caption package provides the machinery; these settings pin ordinary captions to the report class look, so loading it changes nothing the reader can see.
+\RequirePackage{caption}
+\captionsetup{font=normal, labelfont=normal, labelsep=colon, skip=10pt}
+% The description style: smaller than the body, never centred even when it fits one line (singlelinecheck=false), with a small gap under the caption above.
+\DeclareCaptionStyle{bangordescription}{font=small, skip=0.35\baselineskip, justification=justified, singlelinecheck=false}
+% \captiondesc[short]{title}{description} is the caption form that also carries a description paragraph beneath the title. The optional argument is the list-of-floats entry and defaults to the title, as with \caption. The description never enters any list and steps no counter. The group keeps the description style off the float's own caption.
+\NewDocumentCommand { \captiondesc } { o +m +m }
+{%
+  \IfValueTF { #1 }
+    { \caption [ #1 ] { #2 } }
+    { \caption { #2 } }%
+  \begingroup
+    \captionsetup { style=bangordescription }%
+    \caption* { #3 }%
+  \endgroup}
+
+
 % cleveref does not auto-detect the listings package's lstlisting
 % counter because listings loads after cleveref (it is a template-level
 % concern). Declaring the format here means templates that use listings
