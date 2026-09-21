@@ -229,7 +229,7 @@ jobs:
             if grep -E "Reference .* undefined|multiply defined|with the same identifier" "$f.log"; then
               status=1
             fi
-            if grep -E "Suppressing link with empty target|Font shape .* undefined" "$f.log"; then
+            if grep -E "Suppressing link with empty target|Font shape .* undefined|Overfull .hbox" "$f.log"; then
               status=1
             fi
           done
