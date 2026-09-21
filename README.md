@@ -70,7 +70,7 @@ The title page carries no number. The front matter (acknowledgements, abstract, 
 
 ## Captions
 
-`\captiondesc[short]{title}{description}` is the caption form that also carries a description: the title prints as the caption, the description prints beneath it in smaller type, and the short form is the list-of-floats entry, defaulting to the title exactly as with `\caption`. Plain `\caption` is unchanged and the two can be mixed freely.
+`\captiondesc[short]{title}{description}` is the caption form that also carries a description: the title prints as the caption, the description prints beneath it in smaller type, and the short form is the list-of-floats entry, defaulting to the title exactly as with `\caption`. Plain `\caption` is unchanged and the two can be mixed freely. A list entry longer than 80 characters fails the build in strict mode and warns with `strict=false`; give the caption a short form.
 
 ## Float numbering
 
