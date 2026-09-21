@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/Mearman/bangor/compare/v5.0.0...v5.0.1) (2026-09-21)
+
+
+### Bug Fixes
+
+* title the list of abbreviations like the other front matter lists ([15e50a4](https://github.com/Mearman/bangor/commit/15e50a4df00c2b4fb7fbee47344de3b3e8f63b59))
+
 # [5.0.0](https://github.com/Mearman/bangor/compare/v4.1.1...v5.0.0) (2026-09-21)
 
 
