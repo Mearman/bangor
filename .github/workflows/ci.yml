@@ -87,7 +87,7 @@ jobs:
             latex-build-
       - uses: Mearman/actions/.github/actions/setup-texlive@setup-texlive-v1
         with:
-          extra: texlive-lang-european poppler-utils
+          extra: texlive-lang-european texlive-science poppler-utils
       - name: Compile documentation
         run: |
           latexmk -pdf -interaction=nonstopmode doc/bangor.tex
