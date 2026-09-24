@@ -45,11 +45,11 @@
     ],
     [
       "@semantic-release/git",
-      { "assets": ["CHANGELOG.md", "*.sty", "*.cls"] }
+      { "assets": ["CHANGELOG.md", "bangor.cls"] }
     ],
     [
       "@semantic-release/github",
-      { "assets": ["bangor.pdf", "bangor-ctan.zip"] }
+      { "assets": ["bangor.pdf", "bangor-ctan.zip", "bangor.cls", "bangor-crest-colour.pdf"] }
     ]
   ]
 }
