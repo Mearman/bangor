@@ -22,7 +22,7 @@ jobs:
           profile: lint
       - name: Format
         run: |
-          for f in *.sty *.cls doc/*.tex tests/smoke/*.tex; do
+          for f in *.cls doc/*.tex tests/smoke/*.tex; do
             latexindent -l .latexindent.yaml -s -w "$f" && rm -f "$f.bak0"
           done
       - name: Commit
@@ -30,7 +30,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
-            git add -- '*.sty' '*.cls' doc tests/smoke
+            git add -- '*.cls' doc tests/smoke
             git commit -m "style: run latexindent over the sources"
             remote="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
             git push "$remote" "HEAD:${GITHUB_REF_NAME}"

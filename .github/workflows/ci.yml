@@ -28,14 +28,14 @@ jobs:
       - name: Format check
         run: |
           status=0
-          for f in *.sty *.cls doc/*.tex tests/smoke/*.tex; do
+          for f in *.cls doc/*.tex tests/smoke/*.tex; do
             latexindent -check -l .latexindent.yaml -s "$f" || status=1
           done
           exit $status
       - name: Lint
         run: |
           status=0
-          for f in *.sty *.cls doc/*.tex; do
+          for f in *.cls doc/*.tex; do
             chktex -q "$f" 2>&1 | tee "/tmp/chktex-$f.log" || true
             grep -q "Error" "/tmp/chktex-$f.log" && status=1
           done
@@ -82,7 +82,7 @@ jobs:
             *.fls
             *.bcf
             *.bbl
-          key: latex-build-${{ hashFiles('**/*.tex', '**/*.sty', '**/*.cls', 'tests/smoke/*.bib') }}
+          key: latex-build-${{ hashFiles('**/*.tex', '**/*.cls', 'tests/smoke/*.bib') }}
           restore-keys: |
             latex-build-
       - uses: Mearman/actions/.github/actions/setup-texlive@setup-texlive-v1
@@ -108,11 +108,49 @@ jobs:
       - name: Compile positive smoke tests
         run: |
           status=0
-          for f in research-thesis taught-dissertation letter declarations-article; do
+          for f in research-thesis taught-dissertation letter; do
             latexmk -pdf -interaction=nonstopmode "tests/smoke/$f.tex" || status=1
             log="tests/smoke/$f.log"
             grep -E "^!" "$log" && status=1
             grep -E "Reference .* undefined|Citation .* undefined|multiply defined" "$log" && status=1
+          done
+          exit $status
+      - name: Assert a missing crest degrades to one warning
+        run: |
+          status=0
+          isolated=$(mktemp -d)
+          cp bangor.cls "$isolated/"
+          cp tests/smoke/research-thesis.tex tests/smoke/letter.tex tests/smoke/smoke.bib "$isolated/"
+          for f in research-thesis letter; do
+            (cd "$isolated" && latexmk -pdf -interaction=nonstopmode "$f.tex") || status=1
+            if grep -E "^!" "$isolated/$f.log"; then status=1; fi
+            warned=$(grep -c "bangor-crest-colour.pdf was not found" "$isolated/$f.log" || true)
+            if [ "$warned" -ne 1 ]; then
+              echo "$f: expected one missing-crest warning, found $warned"
+              status=1
+            fi
+            if ! pdftotext "$isolated/$f.pdf" - | grep -q "Bangor University"; then
+              echo "$f: the wordmark placeholder is missing"
+              status=1
+            fi
+          done
+          exit $status
+      - name: Assert letter mode rejects thesis options
+        run: |
+          status=0
+          for opts in phd tables pageofm=false citations=ieee; do
+            sed "s/\\documentclass\[[^]]*\]/\\documentclass[letter,$opts]/" \
+              tests/smoke/letter.tex > tests/smoke/letter-mixed.tex
+            if latexmk -pdf -interaction=nonstopmode tests/smoke/letter-mixed.tex >/dev/null 2>&1; then
+              echo "letter with $opts compiled; the mode check is broken"
+              status=1
+            fi
+            if ! grep -q "cannot be combined with letter" letter-mixed.log; then
+              echo "letter with $opts gave no mode error"
+              status=1
+            fi
+            latexmk -C tests/smoke/letter-mixed.tex >/dev/null 2>&1
+            rm -f letter-mixed.* tests/smoke/letter-mixed.tex
           done
           exit $status
       - name: Assert strict-mode failure
@@ -484,7 +522,7 @@ jobs:
         run: |
           python3 - << 'EOF'
           body = "word " * 620
-          doc = ("\\documentclass[phd,12pt,a4paper]{bangorthesis}\n"
+          doc = ("\\documentclass[phd,12pt,a4paper]{bangor}\n"
                  "\\title{Long Abstract Test}\n\\author{E. Student}\n"
                  "\\degreescheme{Doctor of Philosophy}\n\\begin{document}\n"
                  "\\begin{abstract}\n" + body + "\n\\end{abstract}\n"
@@ -521,9 +559,7 @@ jobs:
       - name: Validate archive contents
         run: |
           status=0
-          for f in bangor.sty bangoridentity.sty bangorlayout.sty \
-                   bangordeclarations.sty bangorletter.sty bangorthesis.cls \
-                   bangor-crest-colour.pdf README.md LICENSE; do
+          for f in bangor.cls bangor-crest-colour.pdf README.md LICENSE; do
             if ! unzip -l bangor-ctan.zip | grep -q "$f"; then
               echo "missing from archive: $f"
               status=1
