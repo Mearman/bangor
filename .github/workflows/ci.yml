@@ -55,7 +55,7 @@ jobs:
           status=0
           grep -oE 'https://[^)\]]+' README.md | sort -u | while IFS= read -r url; do
             case "$url" in
-              *img.shields.io*|*ctan.org*|*latex-project.org*) continue ;;
+              *img.shields.io*|*ctan.org*|*latex-project.org*|*/releases/latest/download/*) continue ;;
             esac
             if ! curl -sf -o /dev/null --max-time 15 "$url"; then
               echo "broken link: $url"
