@@ -534,8 +534,8 @@ jobs:
             echo "long-abstract compiled in strict mode; the check is broken"
             exit 1
           fi
-          grep -q "abstract is approximately" long-abstract.log
-          grep -q "caps the abstract at 600 words" long-abstract.log
+          tr -d '\n' < long-abstract.log | grep -q "abstract is approximately"
+          tr -d '\n' < long-abstract.log | grep -q "caps the abstract at 600 words"
           latexmk -C tests/smoke/long-abstract.tex >/dev/null 2>&1
           rm -f long-abstract.* tests/smoke/long-abstract.tex
 
