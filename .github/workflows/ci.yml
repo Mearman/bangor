@@ -389,7 +389,7 @@ jobs:
             echo "an over-long list entry compiled in strict mode"
             status=1
           fi
-          if ! grep -q "maximum is 80" caption-length-strict.log; then
+          if ! tr -d '\n' < caption-length-strict.log | grep -q "maximum is 80"; then
             echo "an over-long list entry gave no message"
             status=1
           fi
