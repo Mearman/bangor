@@ -99,29 +99,29 @@
 \ExplSyntaxOn
 \clist_new:N \c__bts_thesis_only_clist
 \clist_set:Nn \c__bts_thesis_only_clist
-  {
-    thesis, dissertation, phd, mphil, mres, mscres, engd, profdoc,
-    msc, ma, mba, llm, mmus, pgcert, pgdip, bsc, ba, beng, meng, msci,
-    citations, font, strict, print, digital, welsh,
-    headers, headrule, footrule, pageofm, appendixpages,
-    sharedfloats, sectionfloats, frontmattertoc, tables, glossary
-  }
+{
+  thesis, dissertation, phd, mphil, mres, mscres, engd, profdoc,
+  msc, ma, mba, llm, mmus, pgcert, pgdip, bsc, ba, beng, meng, msci,
+  citations, font, strict, print, digital, welsh,
+  headers, headrule, footrule, pageofm, appendixpages,
+  sharedfloats, sectionfloats, frontmattertoc, tables, glossary
+}
 \tl_new:N \l__bts_optlist_tl
 \cs_new_protected:Npn \__bts_check_letter_options:
+{
+  \cs_if_exist:NTF \@classoptionslist
+  { \tl_set_eq:NN \l__bts_optlist_tl \@classoptionslist }
+  { \tl_set_eq:NN \l__bts_optlist_tl \@raw@classoptionslist }
+  \clist_map_inline:Nn \c__bts_thesis_only_clist
   {
-    \cs_if_exist:NTF \@classoptionslist
-      { \tl_set_eq:NN \l__bts_optlist_tl \@classoptionslist }
-      { \tl_set_eq:NN \l__bts_optlist_tl \@raw@classoptionslist }
-    \clist_map_inline:Nn \c__bts_thesis_only_clist
-      {
-        \regex_match:nVT { (\A|,) \s* ##1 \s* (,|=|\Z) } \l__bts_optlist_tl
-          {
-            \ClassError { bangor }
-              { The~option~`##1'~cannot~be~combined~with~letter }
-              { The~letter~option~selects~the~letter~mode,~which~takes~no~thesis~options. }
-          }
-      }
+    \regex_match:nVT { (\A|,) \s* ##1 \s* (,|=|\Z) } \l__bts_optlist_tl
+    {
+      \ClassError { bangor }
+      { The~option~`##1'~cannot~be~combined~with~letter }
+      { The~letter~option~selects~the~letter~mode,~which~takes~no~thesis~options. }
+    }
   }
+}
 \ifbts@letter \__bts_check_letter_options: \fi
 \ExplSyntaxOff
 \ifbts@letter
@@ -164,7 +164,7 @@
     \setlength{\bts@crestheight}{0.81\dimexpr#1\relax}%
     {\setlength{\fboxsep}{0pt}%
       \fbox{\parbox[c][\bts@crestheight][c]{#1}{%
-        \centering\sloppy\footnotesize\bangorwordmark}}}%
+          \centering\sloppy\footnotesize\bangorwordmark}}}%
   }}
 
 % Version stamp. The register is filled by the kernel from the version
@@ -240,7 +240,7 @@
   % which class version produced the document.
   \AtBeginDocument{%
     \hypersetup{pdfsubject={\bangorversionstamp},
-    pdfkeywords={Bangor University; \bangorversionstamp}}}
+      pdfkeywords={Bangor University; \bangorversionstamp}}}
   % The letterhead. Put this at the top of a letter environment, before
   % the \opening command. The optional argument sets the crest width.
   \newcommand{\bangorletterhead}[1][1.5cm]{%
@@ -403,11 +403,11 @@
 % guidance with your own statement, or state that you used no such
 % tools. Check your school's current policy before you submit.
 \def\bts@aistatement{%
-Generative artificial intelligence tools were used as follows:
-[describe how you used the tools, or write that you did not use
-them]. All AI-assisted content was reviewed and verified by the
-author. No unpublished research data or sensitive material was
-entered into any generative AI tool.}
+  Generative artificial intelligence tools were used as follows:
+  [describe how you used the tools, or write that you did not use
+    them]. All AI-assisted content was reviewed and verified by the
+  author. No unpublished research data or sensitive material was
+  entered into any generative AI tool.}
 \newcommand{\aistatement}[1]{\gdef\bts@aistatement{#1}}
 
 % Statement of availability. Fill-in template, not statutory wording.
@@ -487,7 +487,7 @@ entered into any generative AI tool.}
 % Bake the version stamp into the PDF metadata.
 \AtBeginDocument{%
   \hypersetup{pdfsubject={\bangorversionstamp},
-  pdfkeywords={Bangor University; \bangorversionstamp}}}
+    pdfkeywords={Bangor University; \bangorversionstamp}}}
 
 % Bibliography setup. Call once in the preamble, optionally with a
 % biblatex style name; the default comes from the citations option.
@@ -572,9 +572,9 @@ entered into any generative AI tool.}
 
 \newenvironment{acknowledgements}{%
   \begin{singlespace}
-    \bangorfrontheading{Acknowledgements}
-    }{%
-    \par\end{singlespace}}
+  \bangorfrontheading{Acknowledgements}
+}{%
+  \par\end{singlespace}}
 
 % The lists of figures and tables print only when the document has figures or tables. Each caption written to the list file marks the document in the auxiliary file, so the marker exists from the second run. The lists are headed like the rest of the front matter.
 \newcommand{\bts@hasfloats}[1]{\global\@namedef{bts@has@#1}{}}
@@ -671,10 +671,10 @@ entered into any generative AI tool.}
 % The page number in the main matter, optionally as "Page N of M". In an appendix the number and the total count within that appendix.
 \newcommand{\bts@pagenumber}{%
   \ifbts@appendixnumbering
-  Appendix~\thechapter{} - Page~\arabic{page}%
-  \ifbts@pageofm~of~\pageref*{bts@appendix@\thechapter}\fi
+    Appendix~\thechapter{} - Page~\arabic{page}%
+    \ifbts@pageofm~of~\pageref*{bts@appendix@\thechapter}\fi
   \else
-  \ifbts@pageofm Page~\thepage~of~\pageref*{bts@lastpage}\else\thepage\fi
+    \ifbts@pageofm Page~\thepage~of~\pageref*{bts@lastpage}\else\thepage\fi
   \fi}
 
 % Names in the header may use this share of the text width each. Chapter and section names that repeat one another (contents, bibliography) show once.
@@ -817,9 +817,9 @@ entered into any generative AI tool.}
   \str_case:Vn \l_bts_caption_ext_tl
   {
     { lof } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-      { lot } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-      { lol } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-      { loa } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+    { lot } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+    { lol } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+    { loa } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
   }
 }
 \cs_generate_variant:Nn \__bts_measure_caption:nn { Vn }
@@ -877,235 +877,235 @@ entered into any generative AI tool.}
 % a table. The underlying longtable, tabularx and landscape
 % environments remain available for special cases.
 \ifbts@tables
-\RequirePackage{xltabular}
-\RequirePackage{pdflscape}
+  \RequirePackage{xltabular}
+  \RequirePackage{pdflscape}
 
-\ExplSyntaxOn
-\bool_new:N \l_bts_wide_bool
-\int_new:N \l_bts_cols_int
-\tl_new:N \l_bts_opt_tl
-\seq_new:N \l__bts_opt_seq
+  \ExplSyntaxOn
+  \bool_new:N \l_bts_wide_bool
+  \int_new:N \l_bts_cols_int
+  \tl_new:N \l_bts_opt_tl
+  \seq_new:N \l__bts_opt_seq
 
-% Option parsing: a comma list whose only permitted items are the word
-% wide and a columns=N setting. Anything else is a class error naming
-% the offender.
-\cs_new_protected:Npn \__bts_parse_option:n #1
-{
-  \tl_set:Nn \l_bts_opt_tl { #1 }
-  \tl_trim_spaces:N \l_bts_opt_tl
-  \tl_if_empty:NF \l_bts_opt_tl
+  % Option parsing: a comma list whose only permitted items are the word
+  % wide and a columns=N setting. Anything else is a class error naming
+  % the offender.
+  \cs_new_protected:Npn \__bts_parse_option:n #1
   {
-    \str_if_eq:VnTF \l_bts_opt_tl { wide }
-    { \bool_set_true:N \l_bts_wide_bool }
+    \tl_set:Nn \l_bts_opt_tl { #1 }
+    \tl_trim_spaces:N \l_bts_opt_tl
+    \tl_if_empty:NF \l_bts_opt_tl
     {
-      \regex_extract_once:nnNTF { \A columns=(\d+)\Z } { #1 } \l__bts_opt_seq
+      \str_if_eq:VnTF \l_bts_opt_tl { wide }
+      { \bool_set_true:N \l_bts_wide_bool }
       {
-        \int_set:Nn \l_bts_cols_int { \seq_item:Nn \l__bts_opt_seq { 2 } }
-        \int_compare:nNnT \l_bts_cols_int < 2
-          {
-            \ClassError { bangor } { columns~must~be~2~or~more }
-            { Wrapping~into~one~column~is~the~default,~paginating~form. }
-          }
-      }
-      {
-        \ClassError { bangor } { Unknown~longtabular~option~`#1' }
-        { The~permitted~items~are~wide~and~columns=N,~comma~separated. }
+        \regex_extract_once:nnNTF { \A columns=(\d+)\Z } { #1 } \l__bts_opt_seq
+        {
+          \int_set:Nn \l_bts_cols_int { \seq_item:Nn \l__bts_opt_seq { 2 } }
+          \int_compare:nNnT \l_bts_cols_int < 2
+            {
+              \ClassError { bangor } { columns~must~be~2~or~more }
+              { Wrapping~into~one~column~is~the~default,~paginating~form. }
+            }
+        }
+        {
+          \ClassError { bangor } { Unknown~longtabular~option~`#1' }
+          { The~permitted~items~are~wide~and~columns=N,~comma~separated. }
+        }
       }
     }
   }
-}
 
-% xltabular scans its source for the literal \end{xltabular}, so it
-% cannot simply be wrapped: the body is collected first with environ's
-% \NewEnviron and replayed inside, where the literal end token is
-% present for the scan.
-\NewEnviron { longtabular } [2] [ ]
-{
-\bool_set_false:N \l_bts_wide_bool
-\int_set:Nn \l_bts_cols_int { 1 }
-\clist_map_function:nN { #1 } \__bts_parse_option:n
-\bool_if:NT \l_bts_wide_bool { \begin { landscape } }
-\int_compare:nNnTF \l_bts_cols_int = { 1 }
-{
-\begin { xltabular } { \linewidth } { #2 }
-\BODY
-\end { xltabular }
-}
-{ \exp_args:Noo \__bts_columns:nn { #2 } { \BODY } }
-\bool_if:NT \l_bts_wide_bool { \end { landscape } }
-}
-
-% The columns form. The body is an optional caption line ending in \\,
-% then a head block between \panehead and \endpanehead, then the rows.
-% The parse uses delimited arguments, which match tokens without
-% expanding them; the longtable block markers could not be re-used here
-% because expanding them outside a table fires longtable internals.
-% Caption titles and labels must not contain nested braces, and rows
-% must not contain \\.
-\tl_new:N \l__bts_pre_tl
-\tl_new:N \l__bts_head_tl
-\tl_new:N \l__bts_rows_tl
-\tl_new:N \l__bts_cap_tl
-\tl_new:N \l__bts_capshort_tl
-\tl_new:N \l__bts_captitle_tl
-\tl_new:N \l__bts_caplabel_tl
-\tl_new:N \l__bts_row_tl
-\tl_new:N \l__bts_pane_tl
-\seq_new:N \l__bts_rows_seq
-\int_new:N \l__bts_rows_int
-\int_new:N \l__bts_per_int
-\int_new:N \l__bts_from_int
-\int_new:N \l__bts_to_int
-\quark_new:N \q__bts_stop
-
-% #1 preamble, #2 body. Everything up to \panehead is the caption
-% chunk; up to \endpanehead the head; the rest the rows. The markers
-% are checked for first: a missing one would otherwise send the
-% delimited scan to the end of the file.
-\cs_new_protected:Npn \__bts_columns:nn #1 #2
-{
-  \tl_set:Nn \l__bts_body_tl { #2 }
-  \exp_args:NV \__bts_check_markers:n \l__bts_body_tl
-  \exp_after:wN \__bts_split:w \l__bts_body_tl \q__bts_stop
-  \tl_if_empty:NF \l__bts_pre_tl { \__bts_scan_caption: }
-  \__bts_panes:n { #1 }
-}
-\cs_new_protected:Npn \__bts_check_markers:n #1
-{
-  \tl_if_in:nnTF { #1 } { \panehead } { }
+  % xltabular scans its source for the literal \end{xltabular}, so it
+  % cannot simply be wrapped: the body is collected first with environ's
+  % \NewEnviron and replayed inside, where the literal end token is
+  % present for the scan.
+  \NewEnviron { longtabular } [2] [ ]
   {
-    \ClassError { bangor } { The~columns~form~needs~a~\string\panehead~marker }
-    { Put~the~head~rows~between~\string\panehead~and~\string\endpanehead,~after~the~caption~line. }
+    \bool_set_false:N \l_bts_wide_bool
+    \int_set:Nn \l_bts_cols_int { 1 }
+    \clist_map_function:nN { #1 } \__bts_parse_option:n
+    \bool_if:NT \l_bts_wide_bool { \begin { landscape } }
+    \int_compare:nNnTF \l_bts_cols_int = { 1 }
+      {
+        \begin { xltabular } { \linewidth } { #2 }
+        \BODY
+        \end { xltabular }
+      }
+      { \exp_args:Noo \__bts_columns:nn { #2 } { \BODY } }
+    \bool_if:NT \l_bts_wide_bool { \end { landscape } }
   }
-  \tl_if_in:nnTF { #1 } { \endpanehead } { }
-  {
-    \ClassError { bangor } { The~columns~form~needs~an~\string\endpanehead~marker }
-    { Close~the~head~rows~with~\string\endpanehead~before~the~table~rows. }
-  }
-}
-\tl_new:N \l__bts_body_tl
-\cs_new_protected:Npn \__bts_split:w #1 \panehead #2 \endpanehead #3 \q__bts_stop
-{
-  \tl_set:Nn \l__bts_pre_tl { #1 }
-  \tl_set:Nn \l__bts_head_tl { #2 }
-  \tl_set:Nn \l__bts_rows_tl { #3 }
-}
 
-% The caption chunk is \caption[short]{title}\label{key}\\ with the
-% short form optional. Braces cannot appear in a definition's parameter
-% text, so the braced groups are taken as undelimited arguments, which
-% grab a whole balanced group each. The dispatcher consumes \caption
-% and peeks at what follows to pick the scan, replaying the line.
-\cs_new_protected:Npn \__bts_scan_caption:
-{
-  \tl_trim_spaces:N \l__bts_pre_tl
-  \exp_after:wN \__bts_scan_dispatch:w \l__bts_pre_tl \q__bts_stop
-}
-\cs_new_protected:Npn \__bts_scan_dispatch:w \caption #1 \q__bts_stop
-{
-\tl_set:Nn \l__bts_rest_tl { #1 }
-\exp_args:No \tl_if_head_eq_charcode:nNTF { \l__bts_rest_tl } [
-{ \__bts_scan_long:w \caption #1 \q__bts_stop }
+  % The columns form. The body is an optional caption line ending in \\,
+  % then a head block between \panehead and \endpanehead, then the rows.
+  % The parse uses delimited arguments, which match tokens without
+  % expanding them; the longtable block markers could not be re-used here
+  % because expanding them outside a table fires longtable internals.
+  % Caption titles and labels must not contain nested braces, and rows
+  % must not contain \\.
+  \tl_new:N \l__bts_pre_tl
+  \tl_new:N \l__bts_head_tl
+  \tl_new:N \l__bts_rows_tl
+  \tl_new:N \l__bts_cap_tl
+  \tl_new:N \l__bts_capshort_tl
+  \tl_new:N \l__bts_captitle_tl
+  \tl_new:N \l__bts_caplabel_tl
+  \tl_new:N \l__bts_row_tl
+  \tl_new:N \l__bts_pane_tl
+  \seq_new:N \l__bts_rows_seq
+  \int_new:N \l__bts_rows_int
+  \int_new:N \l__bts_per_int
+  \int_new:N \l__bts_from_int
+  \int_new:N \l__bts_to_int
+  \quark_new:N \q__bts_stop
+
+  % #1 preamble, #2 body. Everything up to \panehead is the caption
+  % chunk; up to \endpanehead the head; the rest the rows. The markers
+  % are checked for first: a missing one would otherwise send the
+  % delimited scan to the end of the file.
+  \cs_new_protected:Npn \__bts_columns:nn #1 #2
+  {
+    \tl_set:Nn \l__bts_body_tl { #2 }
+    \exp_args:NV \__bts_check_markers:n \l__bts_body_tl
+    \exp_after:wN \__bts_split:w \l__bts_body_tl \q__bts_stop
+    \tl_if_empty:NF \l__bts_pre_tl { \__bts_scan_caption: }
+    \__bts_panes:n { #1 }
+  }
+  \cs_new_protected:Npn \__bts_check_markers:n #1
+  {
+    \tl_if_in:nnTF { #1 } { \panehead } { }
+    {
+      \ClassError { bangor } { The~columns~form~needs~a~\string\panehead~marker }
+      { Put~the~head~rows~between~\string\panehead~and~\string\endpanehead,~after~the~caption~line. }
+    }
+    \tl_if_in:nnTF { #1 } { \endpanehead } { }
+    {
+      \ClassError { bangor } { The~columns~form~needs~an~\string\endpanehead~marker }
+      { Close~the~head~rows~with~\string\endpanehead~before~the~table~rows. }
+    }
+  }
+  \tl_new:N \l__bts_body_tl
+  \cs_new_protected:Npn \__bts_split:w #1 \panehead #2 \endpanehead #3 \q__bts_stop
+  {
+    \tl_set:Nn \l__bts_pre_tl { #1 }
+    \tl_set:Nn \l__bts_head_tl { #2 }
+    \tl_set:Nn \l__bts_rows_tl { #3 }
+  }
+
+  % The caption chunk is \caption[short]{title}\label{key}\\ with the
+  % short form optional. Braces cannot appear in a definition's parameter
+  % text, so the braced groups are taken as undelimited arguments, which
+  % grab a whole balanced group each. The dispatcher consumes \caption
+  % and peeks at what follows to pick the scan, replaying the line.
+  \cs_new_protected:Npn \__bts_scan_caption:
+  {
+    \tl_trim_spaces:N \l__bts_pre_tl
+    \exp_after:wN \__bts_scan_dispatch:w \l__bts_pre_tl \q__bts_stop
+  }
+  \cs_new_protected:Npn \__bts_scan_dispatch:w \caption #1 \q__bts_stop
+  {
+  \tl_set:Nn \l__bts_rest_tl { #1 }
+  \exp_args:No \tl_if_head_eq_charcode:nNTF { \l__bts_rest_tl } [
+  { \__bts_scan_long:w \caption #1 \q__bts_stop }
   { \__bts_scan_short:w \caption #1 \q__bts_stop }
-}
-\tl_new:N \l__bts_rest_tl
-\cs_new_protected:Npn \__bts_scan_long:w \caption [ #1 ] #2 \label #3 \\ \q__bts_stop
-{
-  \tl_set:Nn \l__bts_capshort_tl { #1 }
-  \tl_set:Nn \l__bts_captitle_tl { #2 }
-  \tl_set:Nn \l__bts_caplabel_tl { #3 }
-}
-\cs_new_protected:Npn \__bts_scan_short:w \caption #1 \label #2 \\ \q__bts_stop
-{
-  \tl_clear:N \l__bts_capshort_tl
-  \tl_set:Nn \l__bts_captitle_tl { #1 }
-  \tl_set:Nn \l__bts_caplabel_tl { #2 }
-}
-
-% The caption is re-emitted once above the panes through \captionof,
-% which the caption package, loaded above, provides.
-\cs_new_protected:Npn \__bts_emit_caption:
-{
-  \tl_if_empty:NF \l__bts_captitle_tl
-  {
-    % An absent short form falls back to the title, the same entry a
-    % plain caption without a short form produces.
-    \tl_if_empty:NT \l__bts_capshort_tl
-    { \tl_set_eq:NN \l__bts_capshort_tl \l__bts_captitle_tl }
-    % The call is built as one token list because captionof's
-    % optional-argument lookahead expands whatever follows it.
-    \tl_set:Ne \l__bts_capcall_tl
-    {
-      \exp_not:N \noindent
-      \exp_not:N \captionof { table } [ \l__bts_capshort_tl ]
-      { \l__bts_captitle_tl }
-      \exp_not:N \label { \l__bts_caplabel_tl }
-      \exp_not:N \par
-    }
-    \tl_use:N \l__bts_capcall_tl
-    \vspace { \abovecaptionskip }
   }
-}
-\tl_new:N \l__bts_capcall_tl
-
-% Rows into a sequence, splitting on \\ with a delimited loop and
-% dropping whitespace-only items.
-\cs_new_protected:Npn \__bts_split_rows:
-{
-  \seq_clear:N \l__bts_rows_seq
-  \exp_after:wN \__bts_rows_loop:w \l__bts_rows_tl \q__bts_stop
-}
-\cs_new_protected:Npn \__bts_rows_loop:w #1 \\ #2 \q__bts_stop
-{
-  \tl_set:Nn \l__bts_row_tl { #1 }
-  \tl_trim_spaces:N \l__bts_row_tl
-  \tl_if_empty:NF \l__bts_row_tl
-  { \seq_put_right:No \l__bts_rows_seq { \l__bts_row_tl } }
-  \tl_if_blank:nTF { #2 } { }
-  { \__bts_rows_loop:w #2 \q__bts_stop }
-}
-
-% Panes: pane p carries rows (p-1)*per+1 .. p*per, per = ceil(rows/N),
-% each pane the available line width divided by the pane count and
-% separated from its neighbour by a 2em gap, matching the width the
-% panes are sized to leave. The head opens every pane.
-% The caption and the panes sit inside one unbreakable minipage: a
-% wrapped table must fit one page by contract, so a page break between
-% the caption and the panes is not a break the form may take.
-\cs_new_protected:Npn \__bts_panes:n #1
-{
-  \__bts_split_rows:
-  % The minipage fills the line, so the paragraph carrying it must not
-  % be indented: \parindent on top of a full-width box overflows by
-  % exactly the indent.
-  \noindent \begin { minipage } { \linewidth }
-  \__bts_emit_caption:
-  \int_set:Nn \l__bts_rows_int { \seq_count:N \l__bts_rows_seq }
-  \int_set:Nn \l__bts_per_int
-  { \int_div_truncate:nn { \l__bts_rows_int + \l_bts_cols_int - 1 } { \l_bts_cols_int } }
-  \int_step_inline:nn { \l_bts_cols_int }
+  \tl_new:N \l__bts_rest_tl
+  \cs_new_protected:Npn \__bts_scan_long:w \caption [ #1 ] #2 \label #3 \\ \q__bts_stop
   {
-    \int_set:Nn \l__bts_from_int { ( ##1 - 1 ) * \l__bts_per_int + 1 }
-    \int_set:Nn \l__bts_to_int { \int_min:nn { ##1 * \l__bts_per_int } { \l__bts_rows_int } }
-    \int_compare:nNnT \l__bts_from_int > \l__bts_to_int { \int_set:Nn \l__bts_from_int { \l__bts_to_int } }
-    \tl_clear:N \l__bts_pane_tl
-    \int_step_inline:nnn { \l__bts_from_int } { \l__bts_to_int }
+    \tl_set:Nn \l__bts_capshort_tl { #1 }
+    \tl_set:Nn \l__bts_captitle_tl { #2 }
+    \tl_set:Nn \l__bts_caplabel_tl { #3 }
+  }
+  \cs_new_protected:Npn \__bts_scan_short:w \caption #1 \label #2 \\ \q__bts_stop
+  {
+    \tl_clear:N \l__bts_capshort_tl
+    \tl_set:Nn \l__bts_captitle_tl { #1 }
+    \tl_set:Nn \l__bts_caplabel_tl { #2 }
+  }
+
+  % The caption is re-emitted once above the panes through \captionof,
+  % which the caption package, loaded above, provides.
+  \cs_new_protected:Npn \__bts_emit_caption:
+  {
+    \tl_if_empty:NF \l__bts_captitle_tl
     {
-      \tl_put_right:No \l__bts_pane_tl { \seq_item:Nn \l__bts_rows_seq { ####1 } }
-      \tl_put_right:Nn \l__bts_pane_tl { \\ }
+      % An absent short form falls back to the title, the same entry a
+      % plain caption without a short form produces.
+      \tl_if_empty:NT \l__bts_capshort_tl
+      { \tl_set_eq:NN \l__bts_capshort_tl \l__bts_captitle_tl }
+      % The call is built as one token list because captionof's
+      % optional-argument lookahead expands whatever follows it.
+      \tl_set:Ne \l__bts_capcall_tl
+      {
+        \exp_not:N \noindent
+        \exp_not:N \captionof { table } [ \l__bts_capshort_tl ]
+        { \l__bts_captitle_tl }
+        \exp_not:N \label { \l__bts_caplabel_tl }
+        \exp_not:N \par
+      }
+      \tl_use:N \l__bts_capcall_tl
+      \vspace { \abovecaptionskip }
     }
-    \int_compare:nNnT { ##1 } > { 1 } { \hspace { 2em } }
-    \begin { minipage } [t] { \dim_eval:n { ( \linewidth - 2em * ( \l_bts_cols_int - 1 ) ) / \l_bts_cols_int } }
-    \begin { tabular } { #1 }
-    \l__bts_head_tl
-    \l__bts_pane_tl
-    \end { tabular }
+  }
+  \tl_new:N \l__bts_capcall_tl
+
+  % Rows into a sequence, splitting on \\ with a delimited loop and
+  % dropping whitespace-only items.
+  \cs_new_protected:Npn \__bts_split_rows:
+  {
+    \seq_clear:N \l__bts_rows_seq
+    \exp_after:wN \__bts_rows_loop:w \l__bts_rows_tl \q__bts_stop
+  }
+  \cs_new_protected:Npn \__bts_rows_loop:w #1 \\ #2 \q__bts_stop
+  {
+    \tl_set:Nn \l__bts_row_tl { #1 }
+    \tl_trim_spaces:N \l__bts_row_tl
+    \tl_if_empty:NF \l__bts_row_tl
+    { \seq_put_right:No \l__bts_rows_seq { \l__bts_row_tl } }
+    \tl_if_blank:nTF { #2 } { }
+    { \__bts_rows_loop:w #2 \q__bts_stop }
+  }
+
+  % Panes: pane p carries rows (p-1)*per+1 .. p*per, per = ceil(rows/N),
+  % each pane the available line width divided by the pane count and
+  % separated from its neighbour by a 2em gap, matching the width the
+  % panes are sized to leave. The head opens every pane.
+  % The caption and the panes sit inside one unbreakable minipage: a
+  % wrapped table must fit one page by contract, so a page break between
+  % the caption and the panes is not a break the form may take.
+  \cs_new_protected:Npn \__bts_panes:n #1
+  {
+    \__bts_split_rows:
+    % The minipage fills the line, so the paragraph carrying it must not
+    % be indented: \parindent on top of a full-width box overflows by
+    % exactly the indent.
+    \noindent \begin { minipage } { \linewidth }
+    \__bts_emit_caption:
+    \int_set:Nn \l__bts_rows_int { \seq_count:N \l__bts_rows_seq }
+    \int_set:Nn \l__bts_per_int
+    { \int_div_truncate:nn { \l__bts_rows_int + \l_bts_cols_int - 1 } { \l_bts_cols_int } }
+    \int_step_inline:nn { \l_bts_cols_int }
+    {
+      \int_set:Nn \l__bts_from_int { ( ##1 - 1 ) * \l__bts_per_int + 1 }
+      \int_set:Nn \l__bts_to_int { \int_min:nn { ##1 * \l__bts_per_int } { \l__bts_rows_int } }
+      \int_compare:nNnT \l__bts_from_int > \l__bts_to_int { \int_set:Nn \l__bts_from_int { \l__bts_to_int } }
+      \tl_clear:N \l__bts_pane_tl
+      \int_step_inline:nnn { \l__bts_from_int } { \l__bts_to_int }
+      {
+        \tl_put_right:No \l__bts_pane_tl { \seq_item:Nn \l__bts_rows_seq { ####1 } }
+        \tl_put_right:Nn \l__bts_pane_tl { \\ }
+      }
+      \int_compare:nNnT { ##1 } > { 1 } { \hspace { 2em } }
+      \begin { minipage } [t] { \dim_eval:n { ( \linewidth - 2em * ( \l_bts_cols_int - 1 ) ) / \l_bts_cols_int } }
+      \begin { tabular } { #1 }
+      \l__bts_head_tl
+      \l__bts_pane_tl
+      \end { tabular }
+      \end { minipage }
+    }
     \end { minipage }
+    \par
   }
-  \end { minipage }
-  \par
-}
-\ExplSyntaxOff
+  \ExplSyntaxOff
 \fi
 
 %%% 9. Abbreviations (option glossary)
@@ -1118,193 +1118,193 @@ entered into any generative AI tool.}
 % \Useabbrev{SHORT} does the same with a capitalised first word.
 % \printabbrevs[Title] prints an unnumbered front matter heading and an alphabetically sorted list. The heading is entered in the contents only when the class option frontmattertoc is set. Each entry ends with the pages on which the abbreviation is used, and runs of three or more consecutive arabic pages are written as a range.
 \ifbts@glossary
-% The default heading of \printabbrevs, named like \listfigurename and \listtablename so a document can change it in one place.
-\newcommand{\abbrevname}{List of Abbreviations}
+  % The default heading of \printabbrevs, named like \listfigurename and \listtablename so a document can change it in one place.
+  \newcommand{\abbrevname}{List of Abbreviations}
 
-\ExplSyntaxOn
+  \ExplSyntaxOn
 
-% Storage: a property list keyed by the short form, holding the long form.
-% A separate sequence tracks insertion order; sorting is done at print time.
-\prop_new:N \g_bangor_abbrev_prop
-\seq_new:N \g_bangor_abbrev_order_seq
+  % Storage: a property list keyed by the short form, holding the long form.
+  % A separate sequence tracks insertion order; sorting is done at print time.
+  \prop_new:N \g_bangor_abbrev_prop
+  \seq_new:N \g_bangor_abbrev_order_seq
 
-% \bangor_add_abbrev:nn {short} {long}
-\cs_new_protected:Npn \bangor_add_abbrev:nn #1 #2
-{
-  \prop_gput:Nnn \g_bangor_abbrev_prop { #1 } { #2 }
-  \seq_gput_right:Nn \g_bangor_abbrev_order_seq { #1 }
-  % Define the used-flag for this abbreviation (unset = not yet used)
-  \bool_new:c { g_bangor_abbrev_ #1 _used_bool }
-  \bool_gset_false:c { g_bangor_abbrev_ #1 _used_bool }
-}
-
-% Every use writes its page to the .aux file, and the next run reads it back through \bangorabbrevpage, so the list can print the pages an abbreviation appears on. A page that already holds the abbreviation is not recorded again. The expl3 prefix stays bangor because \bangorabbrevpage is written into .aux files.
-\cs_new_protected:Npn \bangor_write_page:n #1
-{
-  \protected@write \@auxout { }
-  { \string \bangorabbrevpage { #1 } { \thepage } }
-}
-\cs_new_protected:Npn \bangor_record_page:nn #1 #2
-{
-  \seq_if_exist:cF { g_bangor_abbrev_ #1 _pages_seq }
-  { \seq_new:c { g_bangor_abbrev_ #1 _pages_seq } }
-  \seq_if_in:cnF { g_bangor_abbrev_ #1 _pages_seq } { #2 }
-  { \seq_gput_right:cn { g_bangor_abbrev_ #1 _pages_seq } { #2 } }
-}
-
-% \bangor_use_abbrev:n {short} — short form or full form on first use
-\cs_new_protected:Npn \bangor_use_abbrev:n #1
-{
-  \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
+  % \bangor_add_abbrev:nn {short} {long}
+  \cs_new_protected:Npn \bangor_add_abbrev:nn #1 #2
   {
-    \bangor_write_page:n { #1 }
-    \bool_if:cTF { g_bangor_abbrev_ #1 _used_bool }
-    { #1 }
+    \prop_gput:Nnn \g_bangor_abbrev_prop { #1 } { #2 }
+    \seq_gput_right:Nn \g_bangor_abbrev_order_seq { #1 }
+    % Define the used-flag for this abbreviation (unset = not yet used)
+    \bool_new:c { g_bangor_abbrev_ #1 _used_bool }
+    \bool_gset_false:c { g_bangor_abbrev_ #1 _used_bool }
+  }
+
+  % Every use writes its page to the .aux file, and the next run reads it back through \bangorabbrevpage, so the list can print the pages an abbreviation appears on. A page that already holds the abbreviation is not recorded again. The expl3 prefix stays bangor because \bangorabbrevpage is written into .aux files.
+  \cs_new_protected:Npn \bangor_write_page:n #1
+  {
+    \protected@write \@auxout { }
+    { \string \bangorabbrevpage { #1 } { \thepage } }
+  }
+  \cs_new_protected:Npn \bangor_record_page:nn #1 #2
+  {
+    \seq_if_exist:cF { g_bangor_abbrev_ #1 _pages_seq }
+    { \seq_new:c { g_bangor_abbrev_ #1 _pages_seq } }
+    \seq_if_in:cnF { g_bangor_abbrev_ #1 _pages_seq } { #2 }
+    { \seq_gput_right:cn { g_bangor_abbrev_ #1 _pages_seq } { #2 } }
+  }
+
+  % \bangor_use_abbrev:n {short} — short form or full form on first use
+  \cs_new_protected:Npn \bangor_use_abbrev:n #1
+  {
+    \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
     {
-      \prop_item:Nn \g_bangor_abbrev_prop { #1 } ~ ( #1 )
-      \bool_gset_true:c { g_bangor_abbrev_ #1 _used_bool }
+      \bangor_write_page:n { #1 }
+      \bool_if:cTF { g_bangor_abbrev_ #1 _used_bool }
+      { #1 }
+      {
+        \prop_item:Nn \g_bangor_abbrev_prop { #1 } ~ ( #1 )
+        \bool_gset_true:c { g_bangor_abbrev_ #1 _used_bool }
+      }
+    }
+    {
+      \ClassWarning{bangor} { Unknown~abbreviation:~#1 }
+      #1
     }
   }
-  {
-    \ClassWarning{bangor} { Unknown~abbreviation:~#1 }
-    #1
-  }
-}
 
-% \bangor_use_abbrev_cap:n {short} — same but capitalise the first word
-\cs_new_protected:Npn \bangor_use_abbrev_cap:n #1
-{
-  \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
+  % \bangor_use_abbrev_cap:n {short} — same but capitalise the first word
+  \cs_new_protected:Npn \bangor_use_abbrev_cap:n #1
   {
-    \bangor_write_page:n { #1 }
-    \bool_if:cTF { g_bangor_abbrev_ #1 _used_bool }
-    { #1 }
+    \prop_if_in:NnTF \g_bangor_abbrev_prop { #1 }
     {
-      % Capitalise: use \MakeUppercase on the first letter of the long form
-      \text_titlecase_first:n { \prop_item:Nn \g_bangor_abbrev_prop { #1 } } ~ ( #1 )
-      \bool_gset_true:c { g_bangor_abbrev_ #1 _used_bool }
+      \bangor_write_page:n { #1 }
+      \bool_if:cTF { g_bangor_abbrev_ #1 _used_bool }
+      { #1 }
+      {
+        % Capitalise: use \MakeUppercase on the first letter of the long form
+        \text_titlecase_first:n { \prop_item:Nn \g_bangor_abbrev_prop { #1 } } ~ ( #1 )
+        \bool_gset_true:c { g_bangor_abbrev_ #1 _used_bool }
+      }
+    }
+    {
+      \ClassWarning{bangor} { Unknown~abbreviation:~#1 }
+      #1
     }
   }
+
+  % Page list of one abbreviation. A run of three or more consecutive arabic pages is written as a range, and every other page stands alone. A page is linked when hyperref is loaded.
+  \int_new:N \l_bangor_run_start_int
+  \int_new:N \l_bangor_run_end_int
+  \bool_new:N \l_bangor_run_open_bool
+  \bool_new:N \l_bangor_run_first_bool
+
+  \cs_new_protected:Npn \bangor_page_out:n #1
   {
-    \ClassWarning{bangor} { Unknown~abbreviation:~#1 }
-    #1
+    \bool_if:NTF \l_bangor_run_first_bool
+    { \bool_set_false:N \l_bangor_run_first_bool }
+    { ,~ }
+    \cs_if_exist:NTF \hyperpage { \hyperpage { #1 } } { #1 }
   }
-}
 
-% Page list of one abbreviation. A run of three or more consecutive arabic pages is written as a range, and every other page stands alone. A page is linked when hyperref is loaded.
-\int_new:N \l_bangor_run_start_int
-\int_new:N \l_bangor_run_end_int
-\bool_new:N \l_bangor_run_open_bool
-\bool_new:N \l_bangor_run_first_bool
-
-\cs_new_protected:Npn \bangor_page_out:n #1
-{
-  \bool_if:NTF \l_bangor_run_first_bool
-  { \bool_set_false:N \l_bangor_run_first_bool }
-  { ,~ }
-  \cs_if_exist:NTF \hyperpage { \hyperpage { #1 } } { #1 }
-}
-
-\cs_new_protected:Npn \bangor_run_flush:
-{
-  \bool_if:NT \l_bangor_run_open_bool
-  {
-    \int_compare:nNnTF { \l_bangor_run_end_int - \l_bangor_run_start_int } > { 1 }
-      {
-        \bangor_page_out:n { \int_use:N \l_bangor_run_start_int }
-        --
-        \cs_if_exist:NTF \hyperpage
-        { \hyperpage { \int_use:N \l_bangor_run_end_int } }
-        { \int_use:N \l_bangor_run_end_int }
-      }
-      {
-        \int_step_inline:nnn { \l_bangor_run_start_int } { \l_bangor_run_end_int }
-        { \bangor_page_out:n { ##1 } }
-      }
-    \bool_set_false:N \l_bangor_run_open_bool
-  }
-}
-
-\cs_new_protected:Npn \bangor_page_step:n #1
-{
-  \regex_match:nnTF { \A \d+ \Z } { #1 }
+  \cs_new_protected:Npn \bangor_run_flush:
   {
     \bool_if:NT \l_bangor_run_open_bool
     {
-      \int_compare:nNnF { #1 } = { \l_bangor_run_end_int + 1 }
-        { \bangor_run_flush: }
+      \int_compare:nNnTF { \l_bangor_run_end_int - \l_bangor_run_start_int } > { 1 }
+        {
+          \bangor_page_out:n { \int_use:N \l_bangor_run_start_int }
+          --
+          \cs_if_exist:NTF \hyperpage
+          { \hyperpage { \int_use:N \l_bangor_run_end_int } }
+          { \int_use:N \l_bangor_run_end_int }
+        }
+        {
+          \int_step_inline:nnn { \l_bangor_run_start_int } { \l_bangor_run_end_int }
+          { \bangor_page_out:n { ##1 } }
+        }
+      \bool_set_false:N \l_bangor_run_open_bool
     }
-    \bool_if:NTF \l_bangor_run_open_bool
-    { \int_set:Nn \l_bangor_run_end_int { #1 } }
+  }
+
+  \cs_new_protected:Npn \bangor_page_step:n #1
+  {
+    \regex_match:nnTF { \A \d+ \Z } { #1 }
     {
-      \int_set:Nn \l_bangor_run_start_int { #1 }
-      \int_set:Nn \l_bangor_run_end_int { #1 }
-      \bool_set_true:N \l_bangor_run_open_bool
+      \bool_if:NT \l_bangor_run_open_bool
+      {
+        \int_compare:nNnF { #1 } = { \l_bangor_run_end_int + 1 }
+        { \bangor_run_flush: }
+      }
+      \bool_if:NTF \l_bangor_run_open_bool
+      { \int_set:Nn \l_bangor_run_end_int { #1 } }
+      {
+        \int_set:Nn \l_bangor_run_start_int { #1 }
+        \int_set:Nn \l_bangor_run_end_int { #1 }
+        \bool_set_true:N \l_bangor_run_open_bool
+      }
+    }
+    {
+      \bangor_run_flush:
+      \bangor_page_out:n { #1 }
     }
   }
+
+  \cs_new_protected:Npn \bangor_print_pages:n #1
   {
-    \bangor_run_flush:
-    \bangor_page_out:n { #1 }
+    \seq_if_exist:cT { g_bangor_abbrev_ #1 _pages_seq }
+    {
+      \nobreak \dotfill \nobreak \
+      \group_begin:
+      \bool_set_true:N \l_bangor_run_first_bool
+      \bool_set_false:N \l_bangor_run_open_bool
+      \seq_map_function:cN { g_bangor_abbrev_ #1 _pages_seq } \bangor_page_step:n
+      \bangor_run_flush:
+      \group_end:
+    }
   }
-}
 
-\cs_new_protected:Npn \bangor_print_pages:n #1
-{
-  \seq_if_exist:cT { g_bangor_abbrev_ #1 _pages_seq }
+  % \bangor_print_abbrevs:n {title} — a front matter heading, which the thesis body above defines and enters in the contents only with frontmattertoc, then the sorted list
+  \cs_new_protected:Npn \bangor_print_abbrevs:n #1
   {
-    \nobreak \dotfill \nobreak \
-    \group_begin:
-    \bool_set_true:N \l_bangor_run_first_bool
-    \bool_set_false:N \l_bangor_run_open_bool
-    \seq_map_function:cN { g_bangor_abbrev_ #1 _pages_seq } \bangor_page_step:n
-    \bangor_run_flush:
-    \group_end:
+    \bangorfrontheading { #1 }
+    \begin{description}
+      \bangor_print_abbrevs_sorted:
+    \end{description}
   }
-}
 
-% \bangor_print_abbrevs:n {title} — a front matter heading, which the thesis body above defines and enters in the contents only with frontmattertoc, then the sorted list
-\cs_new_protected:Npn \bangor_print_abbrevs:n #1
-{
-  \bangorfrontheading { #1 }
-  \begin{description}
-    \bangor_print_abbrevs_sorted:
-  \end{description}
-}
-
-% Sort the order sequence alphabetically by short form, then emit items
-\cs_new_protected:Npn \bangor_print_abbrevs_sorted:
-{
-  \seq_gsort:Nn \g_bangor_abbrev_order_seq
+  % Sort the order sequence alphabetically by short form, then emit items
+  \cs_new_protected:Npn \bangor_print_abbrevs_sorted:
   {
-    \str_compare:nNnTF { ##1 } < { ##2 }
-      { \sort_return_same: }
-      { \sort_return_swapped: }
+    \seq_gsort:Nn \g_bangor_abbrev_order_seq
+    {
+      \str_compare:nNnTF { ##1 } < { ##2 }
+        { \sort_return_same: }
+        { \sort_return_swapped: }
+    }
+    \seq_map_inline:Nn \g_bangor_abbrev_order_seq
+    {
+      \item[##1] \prop_item:Nn \g_bangor_abbrev_prop { ##1 }
+      \bangor_print_pages:n { ##1 }
+    }
   }
-  \seq_map_inline:Nn \g_bangor_abbrev_order_seq
-  {
-    \item[##1] \prop_item:Nn \g_bangor_abbrev_prop { ##1 }
-    \bangor_print_pages:n { ##1 }
-  }
-}
 
-% User-level commands
-\NewDocumentCommand { \addabbrev } { m m }
-{ \bangor_add_abbrev:nn { #1 } { #2 } }
+  % User-level commands
+  \NewDocumentCommand { \addabbrev } { m m }
+  { \bangor_add_abbrev:nn { #1 } { #2 } }
 
-\NewDocumentCommand { \useabbrev } { m }
-{ \bangor_use_abbrev:n { #1 } }
+  \NewDocumentCommand { \useabbrev } { m }
+  { \bangor_use_abbrev:n { #1 } }
 
-\NewDocumentCommand { \Useabbrev } { m }
-{ \bangor_use_abbrev_cap:n { #1 } }
+  \NewDocumentCommand { \Useabbrev } { m }
+  { \bangor_use_abbrev_cap:n { #1 } }
 
-\NewDocumentCommand { \printabbrevs } { O{\abbrevname} }
-{ \bangor_print_abbrevs:n { #1 } }
+  \NewDocumentCommand { \printabbrevs } { O{\abbrevname} }
+  { \bangor_print_abbrevs:n { #1 } }
 
-% Read from the .aux file, so it must exist when the file is read.
-\NewDocumentCommand { \bangorabbrevpage } { m m }
-{ \bangor_record_page:nn { #1 } { #2 } }
+  % Read from the .aux file, so it must exist when the file is read.
+  \NewDocumentCommand { \bangorabbrevpage } { m m }
+  { \bangor_record_page:nn { #1 } { #2 } }
 
-\ExplSyntaxOff
+  \ExplSyntaxOff
 \fi
 
 \endinput
