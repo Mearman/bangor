@@ -1,8 +1,8 @@
--- l3build configuration for the bangor package. Packaging runs wherever TeX Live runs, with no extra runtime: lua ships with the distribution. Run l3build ctan to build the CTAN upload archive and the TDS tree that installs the modules and the crest under texmf/tex/latex/bangor, where TEXINPUTS finds the crest for the extensionless includegraphics reference.
+-- l3build configuration for the bangor package. Packaging runs wherever TeX Live runs, with no extra runtime: lua ships with the distribution. Run l3build ctan to build the CTAN upload archive and the TDS tree that installs the class and the crest under texmf/tex/latex/bangor, where TEXINPUTS finds the crest for the extensionless includegraphics reference.
 module = "bangor"
 
-sourcefiles = {"*.sty", "*.cls", "bangor-crest-colour.pdf"}
-installfiles = {"*.sty", "*.cls", "bangor-crest-colour.pdf"}
+sourcefiles = {"bangor.cls", "bangor-crest-colour.pdf"}
+installfiles = {"bangor.cls", "bangor-crest-colour.pdf"}
 textfiles = {"README.md", "LICENSE"}
 
 -- The documentation sources live in doc/ and compile against the package sources.

@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Stamp the released version and date into every module header. Runs in the release workflow only, on Linux CI; contributors never need it.
+# Stamp the released version and date into the class header. Runs in the release workflow only, on Linux CI; contributors never need it.
 set -euo pipefail
 
 version="$1"
 date="$(date +%Y/%m/%d)"
 
-for f in bangor.sty bangoridentity.sty bangorlayout.sty \
-         bangordeclarations.sty bangorletter.sty bangorthesis.cls; do
+for f in bangor.cls; do
   python3 - "$f" "$date" "$version" << 'EOF'
 import re
 import sys
@@ -24,5 +23,5 @@ open(path, "w").write(new)
 EOF
 done
 
-grep -h "v${version}" bangor.sty bangorthesis.cls >/dev/null
-echo "stamped v${version} (${date}) into module headers"
+grep -q "v${version}" bangor.cls
+echo "stamped v${version} (${date}) into the class header"
