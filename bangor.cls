@@ -240,7 +240,7 @@
   % which class version produced the document.
   \AtBeginDocument{%
     \hypersetup{pdfsubject={\bangorversionstamp},
-      pdfkeywords={Bangor University; \bangorversionstamp}}}
+    pdfkeywords={Bangor University; \bangorversionstamp}}}
   % The letterhead. Put this at the top of a letter environment, before
   % the \opening command. The optional argument sets the crest width.
   \newcommand{\bangorletterhead}[1][1.5cm]{%
@@ -403,11 +403,11 @@
 % guidance with your own statement, or state that you used no such
 % tools. Check your school's current policy before you submit.
 \def\bts@aistatement{%
-  Generative artificial intelligence tools were used as follows:
-  [describe how you used the tools, or write that you did not use
-    them]. All AI-assisted content was reviewed and verified by the
-  author. No unpublished research data or sensitive material was
-  entered into any generative AI tool.}
+Generative artificial intelligence tools were used as follows:
+[describe how you used the tools, or write that you did not use
+them]. All AI-assisted content was reviewed and verified by the
+author. No unpublished research data or sensitive material was
+entered into any generative AI tool.}
 \newcommand{\aistatement}[1]{\gdef\bts@aistatement{#1}}
 
 % Statement of availability. Fill-in template, not statutory wording.
@@ -487,7 +487,7 @@
 % Bake the version stamp into the PDF metadata.
 \AtBeginDocument{%
   \hypersetup{pdfsubject={\bangorversionstamp},
-    pdfkeywords={Bangor University; \bangorversionstamp}}}
+  pdfkeywords={Bangor University; \bangorversionstamp}}}
 
 % Bibliography setup. Call once in the preamble, optionally with a
 % biblatex style name; the default comes from the citations option.
@@ -572,9 +572,9 @@
 
 \newenvironment{acknowledgements}{%
   \begin{singlespace}
-  \bangorfrontheading{Acknowledgements}
-}{%
-  \par\end{singlespace}}
+    \bangorfrontheading{Acknowledgements}
+    }{%
+    \par\end{singlespace}}
 
 % The lists of figures and tables print only when the document has figures or tables. Each caption written to the list file marks the document in the auxiliary file, so the marker exists from the second run. The lists are headed like the rest of the front matter.
 \newcommand{\bts@hasfloats}[1]{\global\@namedef{bts@has@#1}{}}
@@ -671,10 +671,10 @@
 % The page number in the main matter, optionally as "Page N of M". In an appendix the number and the total count within that appendix.
 \newcommand{\bts@pagenumber}{%
   \ifbts@appendixnumbering
-    Appendix~\thechapter{} - Page~\arabic{page}%
-    \ifbts@pageofm~of~\pageref*{bts@appendix@\thechapter}\fi
+  Appendix~\thechapter{} - Page~\arabic{page}%
+  \ifbts@pageofm~of~\pageref*{bts@appendix@\thechapter}\fi
   \else
-    \ifbts@pageofm Page~\thepage~of~\pageref*{bts@lastpage}\else\thepage\fi
+  \ifbts@pageofm Page~\thepage~of~\pageref*{bts@lastpage}\else\thepage\fi
   \fi}
 
 % Names in the header may use this share of the text width each. Chapter and section names that repeat one another (contents, bibliography) show once.
@@ -817,9 +817,9 @@
   \str_case:Vn \l_bts_caption_ext_tl
   {
     { lof } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-    { lot } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-    { lol } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
-    { loa } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+      { lot } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+      { lol } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
+      { loa } { \__bts_measure_caption:Vn \l_bts_caption_ext_tl {#3} }
   }
 }
 \cs_generate_variant:Nn \__bts_measure_caption:nn { Vn }
@@ -921,18 +921,18 @@
   % present for the scan.
   \NewEnviron { longtabular } [2] [ ]
   {
-    \bool_set_false:N \l_bts_wide_bool
-    \int_set:Nn \l_bts_cols_int { 1 }
-    \clist_map_function:nN { #1 } \__bts_parse_option:n
-    \bool_if:NT \l_bts_wide_bool { \begin { landscape } }
-    \int_compare:nNnTF \l_bts_cols_int = { 1 }
-      {
-        \begin { xltabular } { \linewidth } { #2 }
-        \BODY
-        \end { xltabular }
-      }
-      { \exp_args:Noo \__bts_columns:nn { #2 } { \BODY } }
-    \bool_if:NT \l_bts_wide_bool { \end { landscape } }
+  \bool_set_false:N \l_bts_wide_bool
+  \int_set:Nn \l_bts_cols_int { 1 }
+  \clist_map_function:nN { #1 } \__bts_parse_option:n
+  \bool_if:NT \l_bts_wide_bool { \begin { landscape } }
+  \int_compare:nNnTF \l_bts_cols_int = { 1 }
+  {
+  \begin { xltabular } { \linewidth } { #2 }
+  \BODY
+  \end { xltabular }
+  }
+  { \exp_args:Noo \__bts_columns:nn { #2 } { \BODY } }
+  \bool_if:NT \l_bts_wide_bool { \end { landscape } }
   }
 
   % The columns form. The body is an optional caption line ending in \\,
@@ -1006,7 +1006,7 @@
   \tl_set:Nn \l__bts_rest_tl { #1 }
   \exp_args:No \tl_if_head_eq_charcode:nNTF { \l__bts_rest_tl } [
   { \__bts_scan_long:w \caption #1 \q__bts_stop }
-  { \__bts_scan_short:w \caption #1 \q__bts_stop }
+    { \__bts_scan_short:w \caption #1 \q__bts_stop }
   }
   \tl_new:N \l__bts_rest_tl
   \cs_new_protected:Npn \__bts_scan_long:w \caption [ #1 ] #2 \label #3 \\ \q__bts_stop
@@ -1232,7 +1232,7 @@
       \bool_if:NT \l_bangor_run_open_bool
       {
         \int_compare:nNnF { #1 } = { \l_bangor_run_end_int + 1 }
-        { \bangor_run_flush: }
+          { \bangor_run_flush: }
       }
       \bool_if:NTF \l_bangor_run_open_bool
       { \int_set:Nn \l_bangor_run_end_int { #1 } }
