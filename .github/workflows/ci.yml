@@ -395,7 +395,7 @@ jobs:
           fi
           sed "s/@OPTIONS@/strict=false/" tests/smoke/caption-length.tex > caption-length-warn.tex
           latexmk -pdf -interaction=nonstopmode caption-length-warn.tex || status=1
-          if ! grep -q "maximum is 80" caption-length-warn.log; then
+          if ! tr -d '\n' < caption-length-warn.log | grep -q "maximum is 80"; then
             echo "strict=false suppressed the list-entry message"
             status=1
           fi
