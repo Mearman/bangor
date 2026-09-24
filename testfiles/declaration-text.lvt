@@ -1,14 +1,13 @@
 \input{regression-test.tex}
-\documentclass[12pt,a4paper]{article}
-\usepackage{bangordeclarations}
+\documentclass[12pt,a4paper]{bangor}
 \makeatletter
 \title{Declaration Test}
 \author{H. Student}
 \begin{document}
 \START
-\TYPE{aistatement-default-present:\ifx\bgd@aistatement\@empty FALSE\else TRUE\fi}
+\TYPE{aistatement-default-present:\ifx\bts@aistatement\@empty FALSE\else TRUE\fi}
 \aistatement{Custom AI statement for testing.}
-\TYPE{aistatement-custom:\bgd@aistatement}
+\TYPE{aistatement-custom:\bts@aistatement}
 \TYPE{declaration-english-contains-results-of-my-own}
 \TYPE{declaration-welsh-contains-canlyniad-fy-ymchwil}
 \makeatother

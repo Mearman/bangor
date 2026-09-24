@@ -1,5 +1,5 @@
 \input{regression-test.tex}
-\documentclass[phd,12pt,a4paper]{bangorthesis}
+\documentclass[phd,12pt,a4paper]{bangor}
 \title{Wording Test}
 \author{H. Student}
 \degreescheme{Doctor of Philosophy}
