@@ -1,3 +1,39 @@
+## [6.0.0](https://github.com/Mearman/bangor/compare/v5.3.5...v6.0.0) (2026-09-24)
+
+### ⚠ BREAKING CHANGES
+
+* bangorthesis.cls and the bangor, bangoridentity, bangorlayout, bangordeclarations, bangorletter, bangortables and bangorglossary packages no longer exist. Load bangor.cls instead.
+* the regression suite no longer loads any of the retired module packages.
+* the document class is now bangor. Replace \documentclass{bangorthesis} with \documentclass{bangor}. Replace \usepackage{bangortables} and \usepackage{bangorglossary} with the tables and glossary class options. For letters, replace \documentclass{letter} plus \usepackage{bangorletter} with \documentclass[letter]{bangor}. The bangor, bangoridentity, bangorlayout, bangordeclarations, bangorletter, bangortables and bangorglossary packages are removed. Clear stale .aux files after upgrading.
+
+### Features
+
+* add the consolidated bangor class ([bb7481d](https://github.com/Mearman/bangor/commit/bb7481d9eebc322b13d31a0b2b38e0cd24d9dba5))
+
+### Documentation
+
+* rewrite the documentation and README for the single class ([fc6fff4](https://github.com/Mearman/bangor/commit/fc6fff4dfa9e1e8323f0c3982f958984d1145273))
+
+### Styles
+
+* indent bangor.cls the way latexindent expects ([2ebc7a4](https://github.com/Mearman/bangor/commit/2ebc7a42f69f400f584be02c494f3defcaa0f8b2))
+* match the indentation of the latexindent that CI runs ([08e7b37](https://github.com/Mearman/bangor/commit/08e7b37b6b4ed31932abeebbe38234d1bc9ee665))
+
+### Tests
+
+* join wrapped lines before matching the abstract-length error ([6e2a08c](https://github.com/Mearman/bangor/commit/6e2a08cc54b35daadff9ef54b435fd008ac98bc5))
+* join wrapped lines before matching the strict-mode long-entry error ([dde0c00](https://github.com/Mearman/bangor/commit/dde0c00833f2c6f1e06dfceda98a6f725e3e1531))
+* match the long-entry warning after the log wraps its lines ([88e88b2](https://github.com/Mearman/bangor/commit/88e88b2f75cf484fed2eb6162180723f7ac436bb))
+* move the fixtures and regression tests to the bangor class ([5a681be](https://github.com/Mearman/bangor/commit/5a681beb4bde933cdbef24829a898c3803d71d4c))
+
+### Build System
+
+* package the single class ([41ffe7b](https://github.com/Mearman/bangor/commit/41ffe7b96c4f4c407ab5cec1ba6387d556f32db8))
+
+### Miscellaneous Chores
+
+* remove the retired module files ([2f6c5cb](https://github.com/Mearman/bangor/commit/2f6c5cb4a4dbaee2eef0039c11986e6f371eaff2))
+
 ## [5.3.5](https://github.com/Mearman/bangor/compare/v5.3.4...v5.3.5) (2026-09-21)
 
 ### Documentation
