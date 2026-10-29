@@ -1,3 +1,9 @@
+## [6.0.1](https://github.com/Mearman/bangor/compare/v6.0.0...v6.0.1) (2026-10-29)
+
+### Documentation
+
+* add the standard badge row to the README ([6bd7959](https://github.com/Mearman/bangor/commit/6bd7959fafb3b94fdbf95f0c55cdc8bade03a95c))
+
 ## [6.0.0](https://github.com/Mearman/bangor/compare/v5.3.5...v6.0.0) (2026-09-24)
 
 ### ⚠ BREAKING CHANGES
